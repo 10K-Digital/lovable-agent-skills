@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import secrets
 import subprocess
 import sys
 import tempfile
@@ -85,7 +86,8 @@ class MigrationTests(unittest.TestCase):
             )
         )
         (legacy / "plans/TP-001-demo.md").write_text("# demo\n")
-        (legacy / "preview-token.local").write_text("redacted-token\n")
+        self.preview_token = "test-only-" + secrets.token_hex(8)
+        (legacy / "preview-token.local").write_text(self.preview_token + "\n")
 
     def tearDown(self) -> None:
         self.tempdir.cleanup()
@@ -108,10 +110,10 @@ class MigrationTests(unittest.TestCase):
         config_path = self.root / ".lovable-agent/config.json"
         config = json.loads(config_path.read_text())
         self.assertEqual(config["testing"]["preview_url"], "https://preview--demo.lovable.app")
-        self.assertNotIn("redacted-token", config_path.read_text())
+        self.assertNotIn(self.preview_token, config_path.read_text())
         self.assertEqual(
             (self.root / ".lovable-agent/preview-token.local").read_text(),
-            "redacted-token\n",
+            self.preview_token + "\n",
         )
         self.assertEqual(
             (self.root / ".lovable-agent/tests/plans/TP-001-demo.md").read_text(), "# demo\n"
