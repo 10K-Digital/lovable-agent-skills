@@ -623,6 +623,6 @@ Found a bug? Have a feature request?
 
 ---
 
-## **Made With ❤️ by 10K Digital**
+## **Made With ❤️ by [10K Digital](https://10k.digital)**
 
 Questions? [GitHub Issues](https://github.com/10K-Digital/lovable-claude-code/issues)
