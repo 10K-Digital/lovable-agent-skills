@@ -1,8 +1,6 @@
 {
-  "mcpServers": {
-    "lovable": {
-      "type": "http",
-      "url": "https://mcp.lovable.dev"
-    }
+  "lovable": {
+    "type": "http",
+    "url": "https://mcp.lovable.dev"
   }
 }

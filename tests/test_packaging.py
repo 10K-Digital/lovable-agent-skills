@@ -41,7 +41,7 @@ class PackagingTests(unittest.TestCase):
 
     def test_official_lovable_mcp_is_streamable_http_config(self) -> None:
         mcp = json.loads((ROOT / "plugins/lovable/.mcp.json").read_text())
-        server = mcp["mcpServers"]["lovable"]
+        server = mcp["lovable"]
         self.assertEqual(server["type"], "http")
         self.assertEqual(server["url"], "https://mcp.lovable.dev")
 
