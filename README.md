@@ -1,5 +1,7 @@
 # 🚀 Lovable + Claude Code = Superpowers
 
+[![Skillselion Top 25](https://skillselion.com/badge/marketplace/10K-Digital/lovable-claude-code.svg?award=1)](https://skillselion.com/marketplace/10K-Digital/lovable-claude-code)
+
 ## **Edit Lovable Projects 10x Faster—Without Leaving Your IDE**
 
 Stop copy-pasting between Lovable and Claude. Stop wrestling with two-way sync. Stop burning through API credits for simple changes.
