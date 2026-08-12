@@ -15,6 +15,8 @@ Use this skill as the first step for work in a Lovable repository.
 2. Preserve provider-specific files as adapters: `CLAUDE.md`, `.claude/`, and Claude commands remain
    supported, but new state belongs in `.lovable-agent/`.
 3. Detect architecture before making assumptions:
+   - Run `python3 plugins/lovable/scripts/detect-architecture.py .` when the helper is available;
+     it reports JSON without reading secret values.
    - `app.config.ts` → TanStack Start (SSR, file-based routes, `*.server.ts` auto-deploys).
    - `vite.config.ts` → Vite SPA (CSR, `src/`, backend changes need Lovable deployment prompts).
    - If both or neither are present, report the ambiguity and inspect the package scripts.

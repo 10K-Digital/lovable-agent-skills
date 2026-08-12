@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MIGRATOR = ROOT / "plugins" / "lovable" / "scripts" / "migrate-workspace.py"
+ARCHITECTURE_DETECTOR = ROOT / "plugins" / "lovable" / "scripts" / "detect-architecture.py"
 SEMVER = re.compile(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$")
 
 
@@ -62,6 +63,32 @@ class PackagingTests(unittest.TestCase):
             check=False,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_architecture_detector_handles_vite_and_tanstack_markers(self) -> None:
+        with tempfile.TemporaryDirectory() as tempdir:
+            root = Path(tempdir)
+            (root / "vite.config.ts").write_text("export default {}\n")
+            result = subprocess.run(
+                [sys.executable, str(ARCHITECTURE_DETECTOR), str(root)],
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(json.loads(result.stdout)["architecture"], "vite-spa")
+            (root / "vite.config.ts").unlink()
+            (root / "app.config.ts").write_text("export default {}\n")
+            result = subprocess.run(
+                [sys.executable, str(ARCHITECTURE_DETECTOR), str(root)],
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(json.loads(result.stdout)["architecture"], "tanstack-start")
+
+    def test_fallback_contract_documents_mcp_failure_classes(self) -> None:
+        deploy = (ROOT / "plugins/lovable/skills/lovable-deploy/SKILL.md").read_text().lower()
+        for term in ("unsupported operation", "timeout", "authentication failure", "browser automation", "manual"):
+            self.assertIn(term, deploy)
 
 
 class MigrationTests(unittest.TestCase):

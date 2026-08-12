@@ -29,5 +29,10 @@ response/logs or Preview checks confirm the result). Never claim verification fr
 MCP acknowledgement alone. If polling is supported, poll with a bounded timeout; otherwise report
 the accepted state and give the manual verification step.
 
+Classify MCP failures before falling back: an unsupported operation, timeout, or unavailable server
+uses browser automation; an authentication failure requires re-authentication or a manual handoff.
+Do not retry authentication failures indefinitely, and never include preview tokens or secret values
+in MCP requests, browser URLs, logs, or generated reports.
+
 The existing `../yolo/` skill and `../yolo/references/mcp-workflows.md` contain the Claude browser
 and MCP procedures. Keep them as compatibility references rather than creating a custom MCP server.
