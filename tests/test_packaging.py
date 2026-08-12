@@ -27,6 +27,10 @@ class PackagingTests(unittest.TestCase):
         self.assertLessEqual(len(interface["defaultPrompt"]), 3)
         self.assertTrue((ROOT / "plugins/lovable/skills").is_dir())
         self.assertFalse(set(manifest) & {"hooks"})
+        claude_manifest = json.loads((ROOT / "plugins/lovable/plugin.json").read_text())
+        self.assertEqual(claude_manifest["hooks"], "./hooks/claude-hooks.json")
+        claude_hooks = json.loads((ROOT / "plugins/lovable/hooks/claude-hooks.json").read_text())["hooks"]
+        self.assertEqual(set(claude_hooks), {"Start", "Stop"})
 
     def test_marketplace_points_at_repository_plugin(self) -> None:
         marketplace = json.loads((ROOT / ".agents/plugins/marketplace.json").read_text())

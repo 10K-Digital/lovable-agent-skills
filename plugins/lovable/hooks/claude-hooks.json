@@ -1,0 +1,29 @@
+{
+  "description": "Lovable Claude Code hooks for auto-sync, auto-push and auto-deploy",
+  "hooks": {
+    "Start": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-sync.sh",
+            "timeout": 30,
+            "description": "Automatically sync with GitHub before starting work (pulls latest changes on main branch)"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-push.sh",
+            "timeout": 30,
+            "description": "Automatically commit and push changes to GitHub when auto-push is enabled"
+          }
+        ]
+      }
+    ]
+  }
+}
