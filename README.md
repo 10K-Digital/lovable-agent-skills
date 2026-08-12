@@ -1,18 +1,18 @@
-# 🚀 Lovable + Claude Code = Superpowers
+# 🚀 Lovable Agent Skills: Claude Code + Codex + More
 
 ## **Edit Lovable Projects 10x Faster—Without Leaving Your IDE**
 
 Stop copy-pasting between Lovable and Claude. Stop wrestling with two-way sync. Stop burning through API credits for simple changes.
 
-**The Lovable Claude Code plugin brings the power of your IDE directly to your Lovable projects.** Edit code with AI assistance, deploy automatically, and let Claude Code handle all the complexity of syncing with Lovable Cloud.
+**The Lovable Agent Skills plugin brings the power of your coding agent directly to your Lovable projects.** Codex, Claude Code, and other Agent Skills runtimes share the same provider-neutral workflows; Claude Code commands and hooks remain available for existing projects.
 
 ### **What You Get:**
 
-✨ **Edit Lovable projects right in your IDE** with all of Claude Code's power
-🧪 **Preview Testing** - automated test plans run against your live Preview app (NEW in v1.9.0!)
+✨ **Edit Lovable projects right in your IDE** with Codex, Claude Code, or another coding agent
+🧪 **Preview Testing** - automated test plans run against your live Preview app
 🏗️ **Dual-architecture support** - works with both Vite SPA and TanStack Start (SSR) projects (v1.8.1)
 🔌 **Lovable MCP integration** - deploy via API instead of browser (NEW in v1.8.0!)
-🗺️ **Project Structure Map** - Claude navigates your codebase faster (NEW in v1.7.0!)
+🗺️ **Project Structure Map** - agents navigate your codebase faster
 ⚡ **Auto-push to GitHub** - automatic commit and push after every task
 🚀 **Auto-deploy to Lovable** - no manual commands needed
 🤖 **Complete workflow automation** - from code changes to production
@@ -21,6 +21,22 @@ Stop copy-pasting between Lovable and Claude. Stop wrestling with two-way sync. 
 🛡️ **Automatic secret detection** - never forget a required API key
 ⚡ **Instant setup** - generates project context automatically
 ✅ **Verification built-in** - tests run after every deployment
+
+### Provider-neutral agent contract
+
+New projects use `.lovable-agent/` as the shared source of truth:
+
+```text
+.lovable-agent/
+├── config.json             # project, sync, deploy, testing, and secret metadata
+├── context.md              # provider-neutral project context (no secret values)
+├── preview-token.local     # ignored Preview credential, never committed
+└── tests/                  # plans, profiles, and results
+```
+
+`AGENTS.md` is the canonical instruction file. `CLAUDE.md` and the legacy
+`.claude/lovable-claude/test/` workspace remain compatible aliases. Run `/lovable:migrate-agent`
+or `python3 plugins/lovable/scripts/migrate-workspace.py` to migrate an existing project.
 
 ---
 
@@ -45,10 +61,11 @@ Working with Lovable is amazing... until it's not:
 ```bash
 /lovable:init
 ```
-Claude Code scans your project, asks a few questions, and generates `CLAUDE.md` with all the context it needs.
+Your agent scans the project, asks a few questions, and generates `.lovable-agent/config.json`,
+`AGENTS.md`, and a Claude-compatible `CLAUDE.md` shim.
 
 ### **2️⃣ Make Your Changes**
-Edit code in your IDE like normal. Claude Code with AI handles the complex stuff.
+Edit code in your IDE like normal. Your coding agent handles the complex Lovable workflow.
 
 ### **3️⃣ Automatic Everything**
 ```bash
@@ -147,7 +164,7 @@ Claude tests your app **in Lovable Preview mode** via browser automation - real 
 
 **How it accesses your Preview:** either you're logged in to Lovable in Chrome, or you give it a tokenized preview URL - open your Lovable project in preview mode, click the **arrow icon next to the address bar**, and copy the URL from the new tab (`https://preview--your-app.lovable.app/?__lovable_token=...`). The token lasts 7 days; the plugin stores it gitignored and asks for a fresh one when it expires.
 
-**Standardized workspace** at `.claude/lovable-claude/test/`: test plans (`plans/TP-NNN-*.md`), test user profiles (`profiles/`), and dated run reports (`results/`). As you build new features, Claude keeps unit tests and test plans in sync - and `/lovable:test-sync` catches anything that slipped.
+**Standardized workspace** at `.lovable-agent/tests/`: test plans (`plans/TP-NNN-*.md`), test user profiles (`profiles/`), and dated run reports (`results/`). The legacy `.claude/lovable-claude/test/` path remains supported and can be migrated with `/lovable:migrate-agent`. As you build new features, your agent keeps unit tests and test plans in sync.
 
 ### 🔐 **Smart Secret Detection**
 Claude Code automatically finds every secret your functions need—by scanning your code. No more "why is this function failing??"—we tell you upfront: "You need STRIPE_WEBHOOK_SECRET."
@@ -180,7 +197,24 @@ Claude Code knows your production URL, database tables, edge functions, secrets,
 
 💡 **Tip:** Enable auto-updates in Claude Code settings so you always get the latest version automatically.
 
-### **Option 2: Local Installation**
+### **Option 2: Codex or another Agent Skills runtime**
+
+Add the repository marketplace, then install the `lovable` plugin:
+
+```bash
+codex plugin marketplace add 10K-Digital/lovable-claude-code
+```
+
+Restart the Codex/ChatGPT desktop app, open the Plugins Directory, choose the `10K Digital`
+marketplace, and install `lovable`. The plugin exposes Agent Skills under `plugins/lovable/skills/`
+and the official Lovable MCP server (`https://mcp.lovable.dev`) through `.mcp.json`. Authenticate
+with Lovable when the MCP connector prompts you. Deployment always falls back to browser automation
+and then a manual prompt.
+
+For any other Agent Skills-compatible agent, point it at the `SKILL.md` files and use
+`.lovable-agent/config.json` plus `AGENTS.md` as the project contract.
+
+### **Option 3: Local Claude Code Installation**
 
 Clone or download this repo, then:
 ```bash
@@ -189,13 +223,49 @@ cp -r lovable-plugin/commands your-project/.claude/commands
 cp -r lovable-plugin/skills your-project/.claude/skills
 ```
 
-### **Option 3: Requirements Check** ✓
+### **Option 4: Requirements Check** ✓
 
 Before you start, make sure you have:
 - ✅ Your Lovable project with GitHub sync enabled ([docs](https://docs.lovable.dev/integrations/github#about-github))
 - ✅ Claude Code configured with your GitHub repo
 - ✅ (Optional, recommended) Lovable MCP for yolo mode - run `/lovable:connect-mcp` to set up
 - ✅ (Alternative) [Claude in Chrome extension](https://chrome.google.com/webstore/detail/claude/pebppomjfocnoigkeepgbmcifnnlndla) for browser-based yolo mode
+
+---
+
+## **Pro Tip: Enable Claude Code GitHub Actions**
+
+Claude Code can review pull requests in the cloud as soon as they open or receive new commits. Add
+the official [Claude Code Action](https://github.com/anthropics/claude-code-action) to your project
+and configure the credential described in its current authentication guide:
+
+```yaml
+# .github/workflows/claude-review.yml
+name: Claude PR review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: >-
+            Review this pull request for correctness, security, regressions, and missing tests.
+            Leave actionable inline comments and summarize only material findings.
+```
+
+Store the secret in GitHub Actions secrets, keep pull-request permissions least-privilege, and
+follow Anthropic's official action documentation if its supported authentication input changes.
 
 ---
 
@@ -449,30 +519,36 @@ After running `/lovable:init`, your project gets:
 
 ```
 your-project/
-├── CLAUDE.md              # Project configuration (edit this!)
-│   ├── Production URL
-│   ├── Secrets table (with status)
-│   ├── Edge Functions list
-│   ├── Database tables
-│   ├── Project conventions
-│   ├── Yolo mode settings
-│   └── Preview testing settings
-├── .claude/lovable-claude/test/   # If preview testing enabled (/lovable:test-init)
-│   ├── test-config.json   # Preview URL + settings
+├── AGENTS.md              # Provider-neutral instructions (canonical)
+├── CLAUDE.md              # Claude Code compatibility shim
+├── .lovable-agent/
+│   ├── config.json        # Project/sync/deploy/testing metadata
+│   ├── context.md        # Generated context without secret values
 │   ├── preview-token.local # Access token (gitignored, 7-day validity)
-│   ├── plans/             # Test plans (TP-001-user-signup.md, ...)
-│   ├── profiles/          # Test user personas
-│   └── results/           # Test run reports
+│   └── tests/             # Plans, profiles, and results
+│       ├── plans/
+│       ├── profiles/
+│       └── results/
+├── .claude/lovable-claude/test/   # Legacy alias, migrated on demand
 └── ... your regular code
 ```
 
-Edit `CLAUDE.md` to customize anything—Claude Code reads and respects your configuration.
+Edit `.lovable-agent/config.json` and `AGENTS.md` to customize the shared workflow. Claude Code also
+reads the generated `CLAUDE.md` compatibility shim.
 
 ---
 
 ## **Version History**
 
-**v1.9.0** (Latest) ⭐
+**v2.0.0** (Latest) ⭐
+- Provider-neutral Agent Skills for Codex and other coding agents
+- Canonical `.lovable-agent/` project configuration and Preview test workspace
+- `AGENTS.md` instructions with Claude Code compatibility shims
+- Official Lovable MCP packaging plus browser and manual fallbacks
+- Idempotent migration from `.claude/lovable-claude/test/`
+- Codex marketplace metadata and optional Codex hook definitions
+
+**v1.9.0**
 - **Preview Testing (beta)** - test your app in Lovable Preview mode via browser automation
   - New `/lovable:test-init` wizard - scans your codebase, suggests test plans for main user actions
   - New `/lovable:test-run` - run plans in Preview (`--smoke`, `--changed`, `--all`, or one plan)

@@ -1,20 +1,23 @@
 #!/bin/bash
 # Auto-push hook for Lovable Claude Code plugin
 # Automatically commits and pushes changes when:
-# 1. auto_push: on in CLAUDE.md
+# 1. auto_push: enabled in .lovable-agent/config.json or CLAUDE.md
 # 2. There are uncommitted changes
 # 3. User is on main branch
 
 set -e
 
-# Exit silently if CLAUDE.md doesn't exist (not a Lovable project)
-if [ ! -f "CLAUDE.md" ]; then
+# Exit silently if neither neutral nor legacy project context exists
+if [ ! -f "CLAUDE.md" ] && [ ! -f ".lovable-agent/config.json" ]; then
   exit 0
 fi
 
-# Check if auto-push is enabled in CLAUDE.md
+# Check if auto-push is enabled in the neutral config or legacy CLAUDE.md
 auto_push_enabled=false
-if grep -qE "^Auto-Push to GitHub:\s*(on|enabled)" CLAUDE.md 2>/dev/null; then
+if [ -f ".lovable-agent/config.json" ] && grep -qE '"auto_push"[[:space:]]*:[[:space:]]*(true|"on"|"enabled")' .lovable-agent/config.json 2>/dev/null; then
+  auto_push_enabled=true
+fi
+if [ -f "CLAUDE.md" ] && grep -qE "^Auto-Push to GitHub:\s*(on|enabled)" CLAUDE.md 2>/dev/null; then
   auto_push_enabled=true
 fi
 

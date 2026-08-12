@@ -67,17 +67,17 @@ If the user is logged in to Lovable in Chrome (with the Claude in Chrome extensi
 
 **The token is a credential. NEVER:**
 - Commit it to git
-- Write it into CLAUDE.md
-- Write it into test-config.json
+- Write it into AGENTS.md or CLAUDE.md
+- Write the base URL and dates into `.lovable-agent/config.json` under `testing`
 - Echo the full token back in chat output (refer to it as "stored token")
 
 **Storage layout:**
 
 | What | Where | Committed? |
 |------|-------|-----------|
-| Base preview URL (no token) | `test-config.json` → `preview_url` | ✅ Yes |
-| Token | `.claude/lovable-claude/test/preview-token.local` | ❌ Gitignored |
-| Capture date + expiry date | `test-config.json` → `token_captured`, `token_expires` | ✅ Yes (dates only) |
+| Base preview URL (no token) | `.lovable-agent/config.json` → `testing.preview_url` | ✅ Yes |
+| Token | `.lovable-agent/preview-token.local` | ❌ Gitignored |
+| Capture date + expiry date | `.lovable-agent/config.json` → `testing.token_captured`, `testing.token_expires` | ✅ Yes (dates only) |
 
 **`preview-token.local` format** (token string only, single line):
 ```
@@ -86,7 +86,7 @@ eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoi...
 
 **Gitignore enforcement:** when scaffolding the workspace, ensure the project's `.gitignore` contains:
 ```
-.claude/lovable-claude/test/preview-token.local
+.lovable-agent/preview-token.local
 ```
 If `.gitignore` is missing the entry, add it BEFORE writing the token file.
 
@@ -104,7 +104,7 @@ When the user pastes a full tokenized URL:
    - `project_id` → sanity check against `lovable_url` in CLAUDE.md if available
 4. **Write**:
    - Token → `preview-token.local`
-   - URL + dates → `test-config.json`
+   - URL + dates → `.lovable-agent/config.json` under `testing`
 5. **Confirm** to the user (without echoing the token):
    ```
    ✅ Preview access configured
@@ -122,7 +122,7 @@ echo "[middle-segment]" | tr '_-' '/+' | base64 -d 2>/dev/null | head -c 1000
 ## Expiry Handling
 
 **Before every test run:**
-1. Read `token_expires` from `test-config.json`
+1. Read `testing.token_expires` from `.lovable-agent/config.json`
 2. If today ≥ expiry date (or within 12 hours of it) → treat as expired
 3. If expired:
    - Try Method 2 (logged-in session) silently first

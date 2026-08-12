@@ -1,13 +1,15 @@
 # Test Workspace: Standardized File Formats
 
-Every file in `.claude/lovable-claude/test/` follows these formats. Always use them - consistency is what lets `/lovable:test-run` and `/lovable:test-sync` work reliably across sessions.
+Every file in `.lovable-agent/tests/` follows these formats. Always use them - consistency is what lets
+`/lovable:test-run` and `/lovable:test-sync` work reliably across sessions. The legacy
+`.claude/lovable-claude/test/` path is accepted during migration.
 
 ## Folder Layout
 
 ```
-.claude/lovable-claude/test/
+.lovable-agent/tests/
 ├── README.md              # Workspace explanation (template below)
-├── test-config.json       # Settings + coverage state
+├── (config lives at ../config.json) # Settings + coverage state
 ├── preview-token.local    # Token only - MUST be gitignored
 ├── plans/
 │   └── TP-[NNN]-[slug].md
@@ -17,7 +19,7 @@ Every file in `.claude/lovable-claude/test/` follows these formats. Always use t
     └── [YYYY-MM-DD]-[run-slug].md
 ```
 
-## test-config.json
+## `.lovable-agent/config.json` testing section
 
 ```json
 {
@@ -167,8 +169,8 @@ Generated once at scaffold time:
 
 Managed by the lovable-claude-code plugin (`/lovable:test-*` commands).
 
-- `test-config.json` - settings, preview URL, coverage state
-- `preview-token.local` - preview access token (gitignored, valid 7 days)
+- `.lovable-agent/config.json` - settings, preview URL, coverage state
+- `.lovable-agent/preview-token.local` - preview access token (gitignored, valid 7 days)
 - `plans/` - test plans (TP-NNN). Edit freely; keep the steps table format.
 - `profiles/` - test user personas. Test credentials only - never real secrets.
 - `results/` - test run reports (newest = current state)

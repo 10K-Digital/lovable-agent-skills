@@ -4,7 +4,8 @@ description: Run test plans against your app in Lovable Preview mode via browser
 
 # Run Preview Tests
 
-Execute test plans from `.claude/lovable-claude/test/plans/` against the live Preview app.
+Execute test plans from `.lovable-agent/tests/plans/` against the live Preview app. Read the legacy
+`.claude/lovable-claude/test/plans/` path when migration has not happened yet.
 
 ## Syntax
 
@@ -21,7 +22,7 @@ Execute test plans from `.claude/lovable-claude/test/plans/` against the live Pr
 1. **Read the testing skill** (`skills/testing/SKILL.md`). The execution procedure is in `skills/testing/references/test-execution.md` - follow it exactly. Access handling is in `references/preview-access.md`.
 
 2. **Prerequisites** (in order):
-   - Workspace exists (`test-config.json`) - else point to `/lovable:test-init`
+   - Workspace exists (`.lovable-agent/config.json` with `testing.enabled`) - else point to `/lovable:test-init`
    - Preview access valid: check `token_expires`; if expired, try logged-in session, else prompt for fresh URL (arrow icon next to the preview address bar; token lasts 7 days)
    - Browser automation available (Claude in Chrome) - else manual fallback checklist
    - Sync state: if a push just happened, apply the sync wait before testing

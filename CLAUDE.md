@@ -1,5 +1,8 @@
 # CLAUDE.md
 
+> Compatibility shim: read [`AGENTS.md`](AGENTS.md) first for provider-neutral instructions.
+> This file retains Claude Code-specific repository notes and remains supported for existing users.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
@@ -7,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a **Claude Code plugin** for integrating with Lovable.dev projects. It's distributed as a plugin, not a typical software project with build steps or test suites.
 
 - **Repository**: https://github.com/10K-Digital/lovable-claude-code
-- **Current Version**: 1.9.0
+- **Current Version**: 2.0.0
 - **Type**: Claude Code plugin marketplace (supports multiple plugins)
 - **Distribution**: Via Claude Code plugin marketplace (10K-Digital/lovable-claude-code)
 

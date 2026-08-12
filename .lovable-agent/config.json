@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "project": {
+    "name": "lovable-claude-code",
+    "production_url": "",
+    "lovable_url": "",
+    "github_url": "https://github.com/10K-Digital/lovable-claude-code",
+    "backend": "plugin",
+    "supabase_ref": "",
+    "architecture": "plugin"
+  },
+  "sync": {
+    "branch": "main",
+    "auto_sync": false,
+    "auto_push": false
+  },
+  "deploy": {
+    "mode": "auto",
+    "confirm_migrations": true,
+    "test_after_deploy": "off"
+  },
+  "testing": {
+    "enabled": false,
+    "preview_url": "",
+    "access_method": "browser-login",
+    "test_after_implementation": false,
+    "test_after_deploy": "off",
+    "last_synced_commit": ""
+  },
+  "inventory": {
+    "edge_functions": [],
+    "migrations": [],
+    "secrets": []
+  }
+}

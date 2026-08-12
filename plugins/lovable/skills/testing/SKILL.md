@@ -9,17 +9,22 @@ description: |
   - Any mention of "test in preview", "preview testing", "test plans", "e2e tests in Lovable"
 
   Tests the running app in Lovable Preview mode via browser automation.
-  Manages standardized test plans, test profiles, and results in .claude/lovable-claude/test/.
+  Manages standardized test plans, test profiles, and results in .lovable-agent/tests/ while
+  preserving .claude/lovable-claude/test/ as a backward-compatible alias.
   Keeps test plans in sync with the codebase as features are added.
 ---
 
 # Preview Testing Skill
 
-This skill tests Lovable apps **in Preview mode** - the live, running version of the app - using Claude's browser automation. It manages a standardized test workspace at `.claude/lovable-claude/test/` containing test plans, test user profiles, and results.
+This skill tests Lovable apps **in Preview mode** - the live, running version of the app - using
+browser automation. The canonical workspace is `.lovable-agent/tests/`; the legacy
+`.claude/lovable-claude/test/` workspace remains supported and can be migrated with
+`scripts/migrate-workspace.py`.
 
 ## When to Activate
 
-1. **Preview testing is enabled** in CLAUDE.md (`Preview Testing → Status: on`)
+1. **Preview testing is enabled** in `.lovable-agent/config.json` or the legacy CLAUDE.md
+   (`Preview Testing → Status: on`)
 2. **User runs testing commands**:
    - `/lovable:test-init` - Test wizard (scaffold workspace, create test plans)
    - `/lovable:test-run` - Execute test plans in Preview mode
@@ -49,7 +54,8 @@ https://preview--[app-name].lovable.app/?__lovable_token=[JWT]
 
 - The user gets this URL by opening their Lovable project in **preview mode** and clicking the **arrow icon at the top, next to the address bar** - this opens the preview in a new tab with the token in the URL.
 - **The token is valid for 7 days.** After expiry, ask the user to capture a fresh URL.
-- The token is a credential - **never commit it to git**. Store it in `.claude/lovable-claude/test/preview-token.local` (gitignored).
+- The token is a credential - **never commit it to git**. Store it in
+  `.lovable-agent/preview-token.local` (gitignored); accept the legacy token path during migration.
 
 See `references/preview-access.md` for full procedures: capture, storage, expiry detection, and re-prompting.
 
@@ -63,6 +69,20 @@ See `references/preview-access.md` for full procedures: capture, storage, expiry
 ## Test Workspace Structure
 
 All testing artifacts live in a standardized folder in the **user's project**:
+
+```
+.lovable-agent/
+├── config.json
+├── context.md
+├── preview-token.local    # Preview token ONLY - gitignored
+└── tests/
+    ├── README.md
+    ├── plans/
+    ├── profiles/
+    └── results/
+```
+
+The legacy alias remains readable:
 
 ```
 .claude/lovable-claude/test/
@@ -87,13 +107,13 @@ See `references/test-plan-format.md` for the standardized formats of every file 
 ### 1. Test Wizard (`/lovable:test-init`)
 
 Guided creation of the test workspace:
-1. Scaffold `.claude/lovable-claude/test/` structure
+1. Scaffold `.lovable-agent/tests/` and `.lovable-agent/config.json` structure
 2. Capture preview URL + token (or detect logged-in browser)
 3. Scan the codebase to identify the app's **main user actions** (routes, forms, auth flows, CRUD operations, edge function calls)
 4. Suggest test plans for each main action, ask guided questions to refine them
 5. Create test user profiles
 6. Write standardized test plan files
-7. Record coverage state (git commit hash) in `test-config.json`
+7. Record coverage state (git commit hash) in `.lovable-agent/config.json` under `testing`
 
 See `references/test-wizard.md` for the complete wizard procedure.
 
@@ -116,12 +136,12 @@ See `references/test-execution.md` for browser automation workflows.
 ### 3. Test Resync (`/lovable:test-sync`)
 
 Keep tests in sync with the codebase as features are added:
-1. Compare current codebase against `last_synced_commit` in `test-config.json`
+1. Compare current codebase against `testing.last_synced_commit` in `.lovable-agent/config.json`
 2. Identify new/changed features (new routes, components, edge functions, migrations)
 3. Map them against existing test plans → find **coverage gaps**
 4. Suggest new test plans and updates to stale ones
 5. Also check unit test coverage gaps (if the project has a test framework)
-6. Update `test-config.json` with the new sync point
+6. Update `.lovable-agent/config.json` with the new testing sync point
 
 ### 4. Continuous Test Maintenance (after each feature)
 
@@ -156,7 +176,8 @@ The skill reads these fields from the user's CLAUDE.md:
 - **Test After Implementation**: Run affected test plans automatically after implementing each feature
 - **Test After Deploy**: What to run after yolo auto-deploy (`off`, `smoke`, or `all`)
 
-The actual token is NEVER in CLAUDE.md - only in `preview-token.local`.
+The actual token is NEVER in `AGENTS.md`, `CLAUDE.md`, or config JSON - only in the ignored
+`.lovable-agent/preview-token.local`.
 
 ## Integration with Other Features
 

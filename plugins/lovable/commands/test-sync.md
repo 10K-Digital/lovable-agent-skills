@@ -24,7 +24,7 @@ Find features added or changed since the last test sync that lack coverage, and 
    ```bash
    git diff --name-only [last_synced_commit] HEAD
    ```
-   (`last_synced_commit` from `test-config.json`. If missing/invalid, fall back to comparing the full scan against existing plans' `covers:` lists.)
+   (`testing.last_synced_commit` from `.lovable-agent/config.json`. If missing/invalid, fall back to comparing the full scan against existing plans' `covers:` lists.)
 
 4. **Classify the changed files** into features:
    - New routes/pages → new user-facing surface
@@ -63,7 +63,7 @@ Find features added or changed since the last test sync that lack coverage, and 
    - Update stale plans (steps, expectations, `covers:`, `updated:` date)
    - Mark orphaned plans `status: deprecated`
    - Write missing unit tests if the user wants them (use the project's existing test framework and conventions)
-   - Update `test-config.json`: `last_synced_commit` = current HEAD, `last_synced_at`, `plan_counter`
+   - Update `.lovable-agent/config.json`: `testing.last_synced_commit` = current HEAD, `testing.last_synced_at`, and `testing.plan_counter`
    - Update `Last Test Sync` in CLAUDE.md's Preview Testing section
 
 8. **Offer a run**: "Run the new/updated plans now? → `/lovable:test-run --changed`"
