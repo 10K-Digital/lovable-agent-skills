@@ -1,7 +1,7 @@
 {
   "name": "lovable",
-  "description": "Claude Code integration for Lovable.dev projects. Provides commands, skills, and context for working with Lovable projects via two-way GitHub sync, with integrations with Lovable Cloud's native Edge Functions, database migrations, and backend deployments. Includes Lovable MCP support for faster automated deployments and Preview Testing - automated test plans run against your live Preview app!",
-  "version": "1.9.0",
+  "description": "Provider-neutral Lovable.dev Agent Skills for Codex, Claude Code, and other coding agents. Provides project context, GitHub sync, Lovable MCP deployments with browser/manual fallbacks, and Preview Testing while preserving Claude Code commands and hooks.",
+  "version": "2.0.0",
   "author": {
     "name": "Felipe Matos from 10K Digital"
   },
@@ -18,7 +18,10 @@
     "e2e-testing",
     "full-stack",
     "no-code",
-    "vibe-coding"
+    "vibe-coding",
+    "codex",
+    "agent-skills",
+    "mcp"
   ],
   "hooks": "./hooks/hooks.json"
 }

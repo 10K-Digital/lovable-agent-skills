@@ -2,6 +2,22 @@
 
 All notable changes to the Lovable Claude Code plugin will be documented in this file.
 
+## [2.0.0] - 2026-08-12
+
+### Added
+
+- Provider-neutral Agent Skills for project context, GitHub sync, Lovable deployment, and Preview testing.
+- Codex plugin manifest, repository marketplace metadata, official Lovable MCP configuration, and optional Codex hooks.
+- Canonical `.lovable-agent/` project contract with `AGENTS.md` instructions and Claude Code compatibility shims.
+- Idempotent `migrate-workspace.py` migration from `.claude/lovable-claude/test/`.
+- Automated skill, plugin, migration, secret-safety, and packaging validation tests.
+- README guidance for Codex installation and Claude Code GitHub Actions PR reviews.
+
+### Changed
+
+- Versioned Claude marketplace and plugin metadata at 2.0.0 while preserving existing Claude commands and hooks.
+- Auto-push accepts neutral `.lovable-agent/config.json` settings while retaining CLAUDE.md behavior.
+
 ## [1.9.0] - 2026-06-10
 
 ### Added

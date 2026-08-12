@@ -1,0 +1,36 @@
+{
+  "name": "lovable",
+  "version": "2.0.0",
+  "description": "Provider-neutral Lovable.dev Agent Skills for Codex, Claude Code, and other coding agents. Provides project context, GitHub sync, Lovable MCP deployments with browser/manual fallbacks, and Preview Testing while preserving Claude Code commands and hooks.",
+  "author": {
+    "name": "Felipe Matos from 10K Digital"
+  },
+  "repository": "https://github.com/10K-Digital/lovable-claude-code",
+  "homepage": "https://github.com/10K-Digital/lovable-claude-code",
+  "license": "MIT",
+  "keywords": [
+    "lovable",
+    "claude-code",
+    "codex",
+    "agent-skills",
+    "mcp",
+    "github-sync",
+    "preview-testing"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Lovable Agent Skills",
+    "shortDescription": "Work with Lovable projects from Codex and other coding agents.",
+    "longDescription": "Portable Agent Skills for Lovable project analysis, GitHub synchronization, Lovable MCP deployments, browser fallback, and Preview testing. Claude Code commands and hooks remain available for backward compatibility.",
+    "developerName": "10K Digital",
+    "category": "Developer Tools",
+    "capabilities": ["Read", "Write", "MCP", "Testing"],
+    "websiteURL": "https://github.com/10K-Digital/lovable-claude-code",
+    "defaultPrompt": [
+      "Initialize this Lovable project for coding agents.",
+      "Deploy the changed Lovable backend safely.",
+      "Run the affected Lovable Preview tests."
+    ]
+  }
+}

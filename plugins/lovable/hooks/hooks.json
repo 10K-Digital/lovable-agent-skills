@@ -1,6 +1,18 @@
 {
   "description": "Lovable plugin hooks for auto-sync, auto-push and auto-deploy",
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/auto-sync.sh",
+            "timeout": 30,
+            "description": "Automatically sync with GitHub before a Codex session (clean main branch only)"
+          }
+        ]
+      }
+    ],
     "Start": [
       {
         "hooks": [

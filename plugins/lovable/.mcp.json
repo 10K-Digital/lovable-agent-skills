@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "lovable": {
+      "type": "http",
+      "url": "https://mcp.lovable.dev"
+    }
+  }
+}

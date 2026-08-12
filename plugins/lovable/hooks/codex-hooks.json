@@ -1,0 +1,4 @@
+{
+  "description": "Optional reference for Codex hook event names. The active bundled hook file is hooks.json, which includes both SessionStart and Claude Start compatibility events.",
+  "events": ["SessionStart", "Stop"]
+}
