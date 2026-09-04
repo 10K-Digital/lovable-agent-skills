@@ -26,7 +26,7 @@ coding agents.
 - Codex discovers the bundled `plugins/lovable/hooks/hooks.json` by convention. It includes
   `SessionStart`/`Stop` events plus the existing Claude `Start` compatibility event; review and trust
   hooks before enabling them.
-- Keep version values synchronized in `.codex-plugin/plugin.json`, `plugins/lovable/plugin.json`,
+- Keep version values synchronized in `.codex-plugin/plugin.json`, `plugins/lovable/.claude-plugin/plugin.json`,
   `.claude-plugin/marketplace.json`, and `CHANGELOG.md`.
 
 ## Validation
