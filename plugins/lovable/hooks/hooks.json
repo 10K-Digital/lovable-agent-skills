@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PLUGIN_ROOT}/hooks/auto-sync.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-sync.sh",
             "timeout": 30,
             "description": "Automatically sync with GitHub before a Codex session (clean main branch only)"
           }

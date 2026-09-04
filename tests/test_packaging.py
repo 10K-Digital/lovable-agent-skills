@@ -52,7 +52,7 @@ class PackagingTests(unittest.TestCase):
         self.assertIn("SessionStart", hooks)
         self.assertIn("Start", hooks)
         self.assertIn("Stop", hooks)
-        self.assertIn("PLUGIN_ROOT", hooks["SessionStart"][0]["hooks"][0]["command"])
+        self.assertIn("${CLAUDE_PLUGIN_ROOT}", hooks["SessionStart"][0]["hooks"][0]["command"])
 
     def test_skills_have_agent_skills_metadata(self) -> None:
         result = subprocess.run(
