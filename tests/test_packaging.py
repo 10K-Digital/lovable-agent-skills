@@ -29,7 +29,7 @@ class PackagingTests(unittest.TestCase):
         self.assertLessEqual(len(interface["defaultPrompt"]), 3)
         self.assertTrue((ROOT / "plugins/lovable/skills").is_dir())
         self.assertFalse(set(manifest) & {"hooks"})
-        claude_manifest = json.loads((ROOT / "plugins/lovable/plugin.json").read_text())
+        claude_manifest = json.loads((ROOT / "plugins/lovable/.claude-plugin/plugin.json").read_text())
         self.assertEqual(claude_manifest["hooks"], "./hooks/claude-hooks.json")
         claude_hooks = json.loads((ROOT / "plugins/lovable/hooks/claude-hooks.json").read_text())["hooks"]
         self.assertEqual(set(claude_hooks), {"Start", "Stop"})
@@ -52,7 +52,7 @@ class PackagingTests(unittest.TestCase):
         self.assertIn("SessionStart", hooks)
         self.assertIn("Start", hooks)
         self.assertIn("Stop", hooks)
-        self.assertIn("PLUGIN_ROOT", hooks["SessionStart"][0]["hooks"][0]["command"])
+        self.assertIn("${CLAUDE_PLUGIN_ROOT}", hooks["SessionStart"][0]["hooks"][0]["command"])
 
     def test_skills_have_agent_skills_metadata(self) -> None:
         result = subprocess.run(

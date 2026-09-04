@@ -26,7 +26,8 @@ This repository is a **plugin marketplace** that can host multiple plugins. Curr
 
 plugins/                     # Plugin directory (one folder per plugin)
 └── lovable/                 # Lovable.dev integration plugin
-    ├── plugin.json          # Plugin definition (version, description)
+    ├── .claude-plugin/      # Claude Code plugin manifest (canonical location)
+    │   └── plugin.json      # Plugin definition (version, description)
     ├── commands/            # Slash commands (/lovable:* commands)
     │   ├── init-lovable.md  # Initialize project context
     │   ├── map-codebase.md  # Generate Project Structure Map (NEW in v1.7.0)
@@ -183,7 +184,7 @@ User starts conversation
 
 When making changes that affect functionality:
 
-1. Update version in `plugins/lovable/plugin.json`
+1. Update version in `plugins/lovable/.claude-plugin/plugin.json`
 2. Add entry to `CHANGELOG.md` following existing format
 3. Update `README.md` if user-facing features changed
 4. Update `.claude-plugin/marketplace.json` to match plugin version
@@ -339,7 +340,7 @@ Tests user projects **in Lovable Preview mode** via browser automation:
 ### Publishing a New Version
 
 1. Make your changes to `plugins/lovable/` (commands/skills/references)
-2. Update `plugins/lovable/plugin.json` version
+2. Update `plugins/lovable/.claude-plugin/plugin.json` version
 3. Update `.claude-plugin/marketplace.json` version to match
 4. Update `CHANGELOG.md` with changes
 5. Update `README.md` if needed
