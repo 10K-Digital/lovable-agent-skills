@@ -76,7 +76,7 @@ def build_config(old_config: dict[str, Any], existing: dict[str, Any]) -> dict[s
     result["testing"] = testing
     result.setdefault("sync", {"branch": "main", "auto_sync": True, "auto_push": False})
     result.setdefault(
-        "deploy", {"mode": "auto", "confirm_migrations": True, "test_after_deploy": "off"}
+        "deploy", {"mode": "auto", "confirm_migrations": False, "test_after_deploy": "off"}
     )
     result.setdefault("inventory", {"edge_functions": [], "migrations": [], "secrets": []})
     return result

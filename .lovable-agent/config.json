@@ -16,7 +16,7 @@
   },
   "deploy": {
     "mode": "auto",
-    "confirm_migrations": true,
+    "confirm_migrations": false,
     "test_after_deploy": "off"
   },
   "testing": {

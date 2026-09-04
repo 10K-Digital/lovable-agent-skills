@@ -2,6 +2,20 @@
 
 All notable changes to the Lovable Claude Code plugin will be documented in this file.
 
+## [2.0.1] - 2026-09-04
+
+### Changed
+
+- Clarified that enabling yolo mode is explicit, standing authorization for Claude to deploy
+  edge functions and apply database migrations via Lovable (MCP or browser automation), with no
+  per-operation confirmation prompt required. The one-time `/yolo on` confirmation is now
+  documented as the authorization event, in `skills/yolo/SKILL.md`, `commands/yolo.md`, and the
+  generated `CLAUDE.md` template's Yolo Mode Configuration section.
+- Aligned the provider-neutral `lovable-deploy` skill and `.lovable-agent/config.json` schema:
+  `deploy.mode` values other than `manual` (`auto`/`mcp`/`browser`) now default `confirm_migrations`
+  to `false`, matching yolo mode's no-confirmation behavior; set it to `true` to keep a
+  confirmation prompt before destructive migrations even in an automated deploy mode.
+
 ## [2.0.0] - 2026-08-12
 
 ### Added

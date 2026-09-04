@@ -60,6 +60,10 @@ Risks:
 ⚠️ Uses Lovable credits for each send_message call
 ⚠️ Always has manual fallback if automation fails
 
+By saying yes, you authorize me to deploy edge functions and apply
+database migrations via Lovable (MCP or browser automation) automatically
+after this — I won't ask again for each individual deployment or migration.
+
 Continue enabling yolo mode? (yes/no)
 ```
 
@@ -84,10 +88,18 @@ Risks:
 💡 Tip: Connect Lovable MCP for faster, more reliable automation:
    Run: /lovable:connect-mcp
 
+By saying yes, you authorize me to deploy edge functions and apply
+database migrations via Lovable (MCP or browser automation) automatically
+after this — I won't ask again for each individual deployment or migration.
+
 Continue enabling yolo mode? (yes/no)
 ```
 
 Wait for user confirmation. If no, abort.
+
+This one-time confirmation is the standing authorization for all future
+automated deployments and migrations while yolo mode stays on — see
+`skills/yolo/SKILL.md` → Authorization.
 
 **b) Validate Prerequisites:**
 

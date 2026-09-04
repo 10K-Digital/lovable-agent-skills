@@ -22,7 +22,11 @@ Before deployment:
 - Read `.lovable-agent/config.json` (or the legacy Claude configuration) for the project ID and mode.
 - Scan the changed code for required secret *names* and report missing configuration without exposing
   values.
-- Ask for confirmation before applying destructive or irreversible migrations.
+- Ask for confirmation before applying destructive or irreversible migrations — *unless* `deploy.mode`
+  is `auto`, `mcp`, or `browser` (the yolo-mode equivalent) and `confirm_migrations` is not explicitly
+  `true`. Enabling one of those automated deploy modes is itself the user's standing authorization to
+  deploy edge functions and apply migrations via Lovable without asking again for each operation; only
+  `deploy.mode: manual`, or an explicit `confirm_migrations: true`, should gate on a confirmation prompt.
 
 After deployment, distinguish **accepted** (the agent received the request) from **verified** (the
 response/logs or Preview checks confirm the result). Never claim verification from an asynchronous

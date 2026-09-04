@@ -16,6 +16,17 @@ description: |
 
 This skill automates Lovable deployment workflows using either the Lovable MCP server (preferred) or Claude's browser automation as a fallback.
 
+## Authorization
+
+Enabling yolo mode (`yolo_mode: on` in CLAUDE.md, confirmed once via `/yolo on`) is the user's standing, durable authorization for Claude to use Lovable — via MCP `send_message` or browser automation — to **deploy edge functions** and **apply database migrations** on their behalf.
+
+While yolo mode is on:
+
+- Do not ask "are you sure?" or otherwise pause for per-deployment or per-migration approval before calling Lovable MCP or driving the browser. The one-time confirmation in `/yolo on` (see `commands/yolo.md`) is the authorization event — it is not repeated for every subsequent operation.
+- This standing authorization covers edge function deployment and migration application specifically. It does not extend to unrelated destructive actions (force-pushes, `git reset --hard`, deleting branches, etc.) or to Lovable operations outside deploy/migrate (table drops, RLS changes, storage buckets) — those still follow normal confirmation rules.
+- "No authorization required" means no blocking prompt before acting — it does not mean acting silently. Always report what was deployed/applied and the result (see User Notifications below), and fall back to a manual prompt on any failure.
+- If yolo mode is off, none of this applies: automation must not run, and commands fall back to showing a manual Lovable prompt for the user to submit themselves.
+
 ## When to Activate
 
 This skill should be active when:

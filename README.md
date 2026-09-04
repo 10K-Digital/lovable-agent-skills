@@ -109,6 +109,8 @@ Claude: 🤖 Detects backend changes automatically
 Done. Zero manual work. No git commands. No deploy commands!
 ```
 
+Enabling yolo mode (`/lovable:yolo on`) is a one-time, standing authorization: once it's on, Claude deploys edge functions and applies database migrations via Lovable automatically and won't ask for confirmation on each individual operation. Turn it off (`/lovable:yolo off`) to go back to reviewing every prompt yourself.
+
 **NEW in v1.8.0:** Lovable MCP integration - deploy via API instead of browser (3-5x faster, no Chrome extension)!
 **IMPROVED in v1.5.0:** Hook-based auto-push for 100% reliable automatic commits and pushes!
 **NEW in v1.3.0:** With auto-deploy enabled, Claude automatically deploys to Lovable after git push!

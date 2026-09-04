@@ -247,6 +247,10 @@ Changes live in Lovable
 - **Auto-run Tests**: [on / off]  # Run project tests after every git push
 - **Debug Mode**: [on / off]  # Verbose logging of automation steps
 - **Last Updated**: [timestamp]
+- **Authorization**: Setting Status to `on` is standing authorization for Claude to
+  deploy edge functions and apply database migrations via Lovable (MCP or browser
+  automation) automatically, with no per-operation confirmation prompt. Set Status
+  to `off` to require manual review before every deployment/migration again.
 - **Operations Covered**:
   - Automatic deployment detection after git push
   - Edge function deployment with verification

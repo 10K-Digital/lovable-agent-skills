@@ -25,7 +25,7 @@ other agents can read it without a provider-specific parser.
   },
   "deploy": {
     "mode": "auto",
-    "confirm_migrations": true,
+    "confirm_migrations": false,
     "test_after_deploy": "off"
   },
   "testing": {
@@ -50,6 +50,14 @@ other agents can read it without a provider-specific parser.
 
 Allowed deployment modes are `auto`, `mcp`, `browser`, and `manual`. Testing access methods are
 `token` and `browser-login`; test-after-deploy is `off`, `smoke`, or `all`.
+
+`deploy.mode` set to anything other than `manual` (i.e. `auto`, `mcp`, or `browser`) is the
+yolo-mode equivalent: the user's standing authorization for the agent to deploy edge functions and
+apply database migrations via Lovable automatically, with no per-operation confirmation. In that
+case `confirm_migrations` should normally be `false`; set it to `true` to keep a confirmation
+prompt before destructive/irreversible migrations even in an automated deploy mode. When
+`deploy.mode` is `manual`, the agent never deploys directly — it always hands back a prompt for the
+user to run in Lovable themselves.
 
 ## Provider shims
 
