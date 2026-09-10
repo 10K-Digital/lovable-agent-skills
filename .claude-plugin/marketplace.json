@@ -11,7 +11,7 @@
       "name": "lovable",
       "source": "./plugins/lovable",
       "description": "Provider-neutral Lovable.dev Agent Skills for Codex, Claude Code, and other coding agents, with Claude Code commands and hooks preserved for compatibility.",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": {
         "name": "Felipe Matos from 10K Digital"
       },

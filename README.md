@@ -24,6 +24,12 @@ Stop copy-pasting between Lovable and Claude. Stop wrestling with two-way sync. 
 
 ### Provider-neutral agent contract
 
+Use the `init` skill (`$lovable:init` in Codex) to initialize or reinitialize a project.
+The Claude `/lovable:init-lovable` command uses the same workflow. Existing settings and custom
+instructions are preserved. `deploy.yolo_mode: true` grants standing authorization for in-scope
+Lovable prompts via MCP or browser; generic confirmation rules apply when YOLO is off.
+Explicit task restrictions and destructive-operation confirmation still apply.
+
 New projects use `.lovable-agent/` as the shared source of truth:
 
 ```text

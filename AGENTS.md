@@ -26,7 +26,7 @@ coding agents.
 - Codex discovers the bundled `plugins/lovable/hooks/hooks.json` by convention. It includes
   `SessionStart`/`Stop` events plus the existing Claude `Start` compatibility event; review and trust
   hooks before enabling them.
-- Keep version values synchronized in `.codex-plugin/plugin.json`, `plugins/lovable/plugin.json`,
+- Keep version values synchronized in `plugins/lovable/.codex-plugin/plugin.json`, `plugins/lovable/plugin.json`,
   `.claude-plugin/marketplace.json`, and `CHANGELOG.md`.
 
 ## Validation
@@ -35,7 +35,7 @@ Run these checks before publishing changes:
 
 ```bash
 python3 scripts/validate_skills.py
-python3 /Users/felipematossardinhapinto/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
+python3 /Users/felipematossardinhapinto/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/lovable
 python3 -m unittest discover -s tests -v
 ```
 

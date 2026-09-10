@@ -6,6 +6,14 @@ description: Initialize Lovable project context. Scans repo, asks questions, gen
 
 Set up Claude Code to work with this Lovable.dev project.
 
+## Shared initialization workflow
+
+First run `../skills/init/SKILL.md` for both initialization and reinitialization. Its preservation
+and authorization rules govern this command. The questionnaire below is a reference for missing
+settings only: skip answered/inferable questions and never reset existing preferences.
+Generate the conditional YOLO authorization rule in AGENTS.md and CLAUDE.md using
+`../skills/lovable/references/prompt-authorization.md`; persist `deploy.yolo_mode` as a boolean.
+
 ## Instructions
 
 1. **Read the lovable skill** for full context on integration patterns.

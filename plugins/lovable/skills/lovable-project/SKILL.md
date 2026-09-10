@@ -10,6 +10,9 @@ description: >-
 
 Use this skill as the first step for work in a Lovable repository.
 
+For initialization or reinitialization, call the `init` skill at `../init/SKILL.md`.
+Before Lovable submissions, read `../lovable/references/prompt-authorization.md`.
+
 1. Read `.lovable-agent/config.json` and `.lovable-agent/context.md` when present. Treat them as the
    canonical source of project settings; read `AGENTS.md` as the neutral instruction shim.
 2. Preserve provider-specific files as adapters: `CLAUDE.md`, `.claude/`, and Claude commands remain

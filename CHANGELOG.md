@@ -2,6 +2,16 @@
 
 All notable changes to the Lovable Claude Code plugin will be documented in this file.
 
+## [2.0.1] - 2026-09-10
+
+### Added
+- Discoverable `init` skill for preserving and refreshing project configuration and agent shims.
+
+### Fixed
+- YOLO mode grants standing authorization for in-scope Lovable prompts; generic confirmation
+  instructions apply only when YOLO is off, with operation-specific safeguards preserved.
+- Neutral YOLO configuration and Claude toggle/init compatibility now use the same authorization rules.
+
 ## [2.0.0] - 2026-08-12
 
 ### Added

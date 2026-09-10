@@ -25,6 +25,7 @@ other agents can read it without a provider-specific parser.
   },
   "deploy": {
     "mode": "auto",
+    "yolo_mode": false,
     "confirm_migrations": true,
     "test_after_deploy": "off"
   },
@@ -52,6 +53,10 @@ Allowed deployment modes are `auto`, `mcp`, `browser`, and `manual`. Testing acc
 `token` and `browser-login`; test-after-deploy is `off`, `smoke`, or `all`.
 
 ## Provider shims
+
+`deploy.yolo_mode` is the boolean standing authorization setting. Follow
+[prompt authorization](prompt-authorization.md), including legacy fallback when the field is absent.
+Preserve its value on reinitialization. `deploy.mode` alone never grants authorization.
 
 - `AGENTS.md` is the canonical instruction entry point.
 - `CLAUDE.md` remains generated for Claude Code and may contain a short pointer to `AGENTS.md`.

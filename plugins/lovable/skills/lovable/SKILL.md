@@ -13,6 +13,10 @@ description: |
 
 # Lovable Integration Skill
 
+For initialization or reinitialization, use `../init/SKILL.md`. Before submitting any Lovable
+prompt, apply [prompt authorization](references/prompt-authorization.md): YOLO on grants standing
+authorization; generic confirmation rules apply when YOLO is off.
+
 This skill enables Claude Code to work effectively with Lovable.dev projects while respecting Lovable's deployment requirements.
 
 ## When to Use This Skill

@@ -28,6 +28,14 @@ Enable or disable yolo mode for automated Lovable prompt submission via Lovable 
 
 ## Instructions
 
+Apply `../skills/lovable/references/prompt-authorization.md` before submission. An explicit
+`/yolo on` request already authorizes enabling YOLO; do not ask for confirmation again.
+After changing mode, persist `deploy.yolo_mode` as true/false in `.lovable-agent/config.json`
+while preserving other fields, and synchronize the legacy CLAUDE.md status. If neutral setup is
+missing, use the init skill first. Refresh the conditional authorization section in AGENTS.md
+and CLAUDE.md. With no arguments, report effective status without changing settings.
+
+
 ### 1. Parse Command Arguments
 
 Extract the mode (`on`/`off`) and flags from the command:
@@ -87,7 +95,7 @@ Risks:
 Continue enabling yolo mode? (yes/no)
 ```
 
-Wait for user confirmation. If no, abort.
+Ask whether to enable only if the user has not already requested enabling YOLO.
 
 **b) Validate Prerequisites:**
 
