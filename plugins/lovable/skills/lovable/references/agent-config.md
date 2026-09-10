@@ -26,7 +26,7 @@ other agents can read it without a provider-specific parser.
   "deploy": {
     "mode": "auto",
     "yolo_mode": false,
-    "confirm_migrations": true,
+    "confirm_migrations": false,
     "test_after_deploy": "off"
   },
   "testing": {
@@ -51,6 +51,11 @@ other agents can read it without a provider-specific parser.
 
 Allowed deployment modes are `auto`, `mcp`, `browser`, and `manual`. Testing access methods are
 `token` and `browser-login`; test-after-deploy is `off`, `smoke`, or `all`.
+
+`deploy.confirm_migrations: true` requests approval before each migration. The default is false;
+YOLO on therefore runs ordinary in-scope migrations without repeated approval. Destructive or
+irreversible database operations still require confirmation. `deploy.mode: manual` always returns
+a prompt for the user to submit, even when YOLO is enabled.
 
 ## Provider shims
 

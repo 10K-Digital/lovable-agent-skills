@@ -16,8 +16,9 @@
   },
   "deploy": {
     "mode": "auto",
-    "confirm_migrations": true,
-    "test_after_deploy": "off"
+    "confirm_migrations": false,
+    "test_after_deploy": "off",
+    "yolo_mode": false
   },
   "testing": {
     "enabled": false,

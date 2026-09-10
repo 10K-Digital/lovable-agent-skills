@@ -18,14 +18,24 @@
     "preview-testing"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json",
+  "mcpServers": {
+    "lovable": {
+      "type": "http",
+      "url": "https://mcp.lovable.dev"
+    }
+  },
   "interface": {
     "displayName": "Lovable Agent Skills",
     "shortDescription": "Work with Lovable projects from Codex and other coding agents.",
     "longDescription": "Portable Agent Skills for Lovable project analysis, GitHub synchronization, Lovable MCP deployments, browser fallback, and Preview testing. Claude Code commands and hooks remain available for backward compatibility.",
     "developerName": "10K Digital",
     "category": "Developer Tools",
-    "capabilities": ["Read", "Write", "MCP", "Testing"],
+    "capabilities": [
+      "Read",
+      "Write",
+      "MCP",
+      "Testing"
+    ],
     "websiteURL": "https://github.com/10K-Digital/lovable-claude-code",
     "defaultPrompt": [
       "Initialize this Lovable project for coding agents.",

@@ -14,7 +14,7 @@ Enable or disable yolo mode for automated Lovable prompt submission via Lovable 
 
 ## Arguments
 
-- `on` - Enable yolo mode (default: auto method, with testing, without debug; requires auto-push)
+- `on` - Enable yolo mode (default: auto method, with testing, without debug)
 - `off` - Disable yolo mode (does not affect auto-push)
 - `--mcp` - Use Lovable MCP only (fastest, requires MCP connection)
 - `--browser` - Use browser automation only (requires Chrome extension)
@@ -24,7 +24,7 @@ Enable or disable yolo mode for automated Lovable prompt submission via Lovable 
 - `--debug` - Enable verbose logging of automation steps
 - (no arguments) - Show current yolo mode status
 
-**Note:** Yolo mode requires auto-push to be enabled. If auto-push is off, you'll be prompted to enable it.
+**Note:** Auto-push is independent. YOLO may deploy after a manual push.
 
 ## Instructions
 
@@ -68,6 +68,10 @@ Risks:
 ⚠️ Uses Lovable credits for each send_message call
 ⚠️ Always has manual fallback if automation fails
 
+By saying yes, you authorize me to deploy edge functions and apply
+database migrations via Lovable (MCP or browser automation) automatically
+after this, subject to your migration approval setting and destructive-operation confirmation.
+
 Continue enabling yolo mode? (yes/no)
 ```
 
@@ -92,10 +96,19 @@ Risks:
 💡 Tip: Connect Lovable MCP for faster, more reliable automation:
    Run: /lovable:connect-mcp
 
+By saying yes, you authorize me to deploy edge functions and apply
+database migrations via Lovable (MCP or browser automation) automatically
+after this, subject to your migration approval setting and destructive-operation confirmation.
+
 Continue enabling yolo mode? (yes/no)
 ```
 
 Ask whether to enable only if the user has not already requested enabling YOLO.
+
+The explicit enable request (or confirmation when enabling was only proposed) grants standing
+authorization for future
+automated deployments and migrations while yolo mode stays on — see
+`../skills/lovable/references/prompt-authorization.md`.
 
 **b) Validate Prerequisites:**
 
@@ -105,26 +118,8 @@ Ask whether to enable only if the user has not already requested enabling YOLO.
    Run /init-lovable first to set up the project.
    ```
 
-2. Check if auto-push is enabled:
-   - Read CLAUDE.md and look for "Auto-Push to GitHub: on"
-   - If auto-push is off or not found, show:
-     ```
-     ⚠️ Yolo mode requires auto-push to be enabled
-
-     Auto-push is currently disabled. Yolo mode needs auto-push to automatically
-     commit and push your changes before triggering deployments.
-
-     Enable auto-push now? (yes/no)
-     ```
-   - If user says "yes", update CLAUDE.md to enable auto-push and continue
-   - If user says "no", abort yolo mode activation:
-     ```
-     ❌ Cannot enable yolo mode without auto-push
-
-     To use yolo mode, auto-push must be enabled. You can:
-     1. Enable auto-push manually in CLAUDE.md
-     2. Run this command again and accept enabling auto-push
-     ```
+2. Preserve the current auto-push setting. YOLO can deploy code already pushed by the user;
+   enabling it does not require or enable auto-push. Verify GitHub sync before deployment.
 
 3. Read CLAUDE.md and check for `lovable_url` field:
    - If missing, ask user:
@@ -177,7 +172,7 @@ Ask whether to enable only if the user has not already requested enabling YOLO.
 ## Yolo Mode Configuration (Beta)
 
 > ⚠️ Beta feature - auto-submits Lovable prompts via MCP or browser automation
-> ⚠️ Requires auto-push to be enabled
+> Auto-push is independent; verify GitHub sync before deployment.
 
 - **Status**: on
 - **Deployment Method**: [auto if --auto or default; mcp if --mcp; browser if --browser]
@@ -207,7 +202,7 @@ Configuration:
 - Debug: [✅ ON / OFF]
 
 Prerequisites:
-✅ Auto-push is enabled (required for yolo mode)
+✅ Existing auto-push preference preserved
 
 [If deployment method is auto and MCP is available:]
 ⚡ Lovable MCP detected - will use MCP for faster deployments
@@ -410,7 +405,7 @@ Choose one:
 **Relationship with auto-push:**
 - Auto-push and yolo mode are configured separately in CLAUDE.md
 - Auto-push can be on while yolo mode is off (manual deployment workflow)
-- Yolo mode REQUIRES auto-push to be on (enforced when enabling)
+- Yolo mode works with manual pushes; auto-push is optional
 - Disabling yolo mode does NOT disable auto-push
 
 **Workflow when yolo mode is enabled:**

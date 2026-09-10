@@ -18,7 +18,8 @@ unrecognized values mean off. An explicit neutral value takes precedence over le
 - Preserve explicit task restrictions such as “do not deploy/publish,” platform approval
   requirements, and confirmation for destructive or irreversible database operations. YOLO
   authorizes in-scope prompts, not unrelated changes or automatic frontend publication.
-- Honor `deploy.confirm_migrations` for migration execution even with YOLO on; that operation
-  gate is separate from routine prompt authorization. Auto-push and auto-deploy remain separate
+- With `deploy.confirm_migrations: true`, confirm migration execution even with YOLO on.
+  With false (the default), ordinary in-scope migrations need no repeated approval.
+  Destructive or irreversible database operations still require confirmation. Auto-push and auto-deploy remain separate
   settings. Do not enable them merely because YOLO is on.
 

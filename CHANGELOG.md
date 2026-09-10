@@ -7,7 +7,15 @@ All notable changes to the Lovable Claude Code plugin will be documented in this
 ### Added
 - Discoverable `init` skill for preserving and refreshing project configuration and agent shims.
 
+### Changed
+- Integrated the provider-neutral and YOLO development branches, retaining their history.
+- Ordinary migrations default to no repeated approval when YOLO is enabled; explicit migration
+  approval preferences and destructive-operation confirmation remain supported.
+- Auto-push remains independent of YOLO. Initialization preserves both preferences.
+
 ### Fixed
+- Codex declares its MCP server map inline for current manifest validation, preserving the
+  compatibility `.mcp.json` map; corrected validation paths and ignored Python cache artifacts.
 - YOLO mode grants standing authorization for in-scope Lovable prompts; generic confirmation
   instructions apply only when YOLO is off, with operation-specific safeguards preserved.
 - Neutral YOLO configuration and Claude toggle/init compatibility now use the same authorization rules.

@@ -4,6 +4,12 @@ description: Check for Edge Function changes and provide Lovable deployment prom
 
 # Deploy Edge Functions
 
+Before submission, read `../skills/lovable/references/prompt-authorization.md` and use
+`../skills/lovable-deploy/SKILL.md`. Resolve neutral `deploy.yolo_mode` before legacy status;
+explicit false overrides legacy on. Apply migration approval gates and transport selection from
+the neutral configuration. The legacy steps below do not override these rules.
+
+
 Check for Edge Function changes and generate Lovable deployment prompts.
 
 ## Instructions

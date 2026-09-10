@@ -35,8 +35,9 @@ unrecognized values mean off. An explicit neutral value takes precedence over le
 - Preserve explicit task restrictions such as “do not deploy/publish,” platform approval
   requirements, and confirmation for destructive or irreversible database operations. YOLO
   authorizes in-scope prompts, not unrelated changes or automatic frontend publication.
-- Honor `deploy.confirm_migrations` for migration execution even with YOLO on; that operation
-  gate is separate from routine prompt authorization. Auto-push and auto-deploy remain separate
+- With `deploy.confirm_migrations: true`, confirm migration execution even with YOLO on.
+  With false (the default), ordinary in-scope migrations need no repeated approval.
+  Destructive or irreversible database operations still require confirmation. Auto-push and auto-deploy remain separate
   settings. Do not enable them merely because YOLO is on.
 
 
@@ -270,6 +271,10 @@ Changes live in Lovable
 - **Auto-run Tests**: [on / off]  # Run project tests after every git push
 - **Debug Mode**: [on / off]  # Verbose logging of automation steps
 - **Last Updated**: [timestamp]
+- **Authorization**: Setting Status to `on` is standing authorization for Claude to
+  deploy edge functions and apply database migrations via Lovable (MCP or browser
+  automation) under the prompt authorization rules above. Keep `deploy.yolo_mode` in sync
+  with this status; explicit migration gates and destructive-operation confirmation still apply.
 - **Operations Covered**:
   - Automatic deployment detection after git push
   - Edge function deployment with verification

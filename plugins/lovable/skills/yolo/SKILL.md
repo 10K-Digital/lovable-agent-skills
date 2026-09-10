@@ -32,11 +32,17 @@ unrecognized values mean off. An explicit neutral value takes precedence over le
 - Preserve explicit task restrictions such as “do not deploy/publish,” platform approval
   requirements, and confirmation for destructive or irreversible database operations. YOLO
   authorizes in-scope prompts, not unrelated changes or automatic frontend publication.
-- Honor `deploy.confirm_migrations` for migration execution even with YOLO on; that operation
-  gate is separate from routine prompt authorization. Auto-push and auto-deploy remain separate
+- With `deploy.confirm_migrations: true`, confirm migration execution even with YOLO on.
+  With false (the default), ordinary in-scope migrations need no repeated approval.
+  Destructive or irreversible database operations still require confirmation. Auto-push and auto-deploy remain separate
   settings. Do not enable them merely because YOLO is on.
 
 This skill automates Lovable deployment workflows using either the Lovable MCP server (preferred) or Claude's browser automation as a fallback.
+
+## Authorization reporting
+
+Apply the authorization rules above to both MCP and browser submission. Report the operation
+and its verified or pending result; standing authorization does not mean silent execution.
 
 ## When to Activate
 
@@ -604,9 +610,9 @@ This skill uses these reference documents:
 ### Check if Yolo Mode is Active
 
 ```
-1. Read CLAUDE.md
-2. Look for "Status: on" in Yolo Mode Configuration
-3. If not found or "off", yolo mode is disabled
+1. Read deploy.yolo_mode in .lovable-agent/config.json first
+2. Only if absent, fall back to CLAUDE.md Yolo Mode Configuration
+3. Apply the authorization rules above; missing/unknown means disabled
 ```
 
 ### Check if Auto-Deploy is Enabled

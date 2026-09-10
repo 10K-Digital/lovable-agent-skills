@@ -204,7 +204,7 @@ Benefits:
 ✅ Instant sync to GitHub → Lovable
 ✅ No more forgetting to commit/push changes
 ✅ Seamless workflow from code → production
-✅ Required for yolo mode automation
+✅ Optional companion to yolo mode automation
 
 How it works:
 1. You ask Claude to make changes
@@ -217,7 +217,7 @@ Enable auto-push to GitHub? (yes/no)
 Default: yes (recommended)
 ```
 
-**Note:** This setting is independent of yolo mode, but yolo mode requires auto-push to be enabled.
+**Note:** This setting is independent of yolo mode; preserve the user's choice.
 
 ### Question 10: Special Instructions
 ```
@@ -276,18 +276,8 @@ Enable yolo mode? (yes/no)
 Default: no
 ```
 
-**Important:** If user wants to enable yolo mode but answered "no" to auto-push (Question 9):
-```
-⚠️ Yolo mode requires auto-push to be enabled.
-
-Auto-push is currently disabled. To enable yolo mode, auto-push must be turned on.
-
-Enable auto-push now? (yes/no)
-```
-
-If user says "yes", enable both yolo mode and auto-push. If "no", disable yolo mode and continue.
-
-If user answers "yes" to yolo mode (and auto-push is already enabled), ask Question 12. If "no" to yolo mode, skip to CLAUDE.md generation.
+Preserve the auto-push answer independently of YOLO. If YOLO is enabled, continue to Question 12;
+otherwise skip to context generation. Never enable either option by default during reinitialization.
 
 ### Question 12: Yolo Testing and Auto-Run Tests (if yes to Q11)
 ```
@@ -332,9 +322,8 @@ This is required for browser automation.
    - Create `AGENTS.md` as the canonical instruction entry point.
    - Generate `CLAUDE.md` from the template below with a pointer to `AGENTS.md`.
 
-   - **CRITICAL:** Include the "🚨 IMPORTANT: Always Commit and Push to GitHub" section at the top (after Project Overview)
-     - This reminds Claude to ALWAYS commit and push changes so they sync from GitHub to Lovable
-     - Without this instruction, Claude might make changes that don't get synced
+   - Describe commit/push behavior according to `sync.auto_push`; never generate an unconditional
+     auto-push instruction when it is disabled.
    - Include yolo mode configuration if enabled
    - Set yolo_mode, yolo_testing, yolo_debug based on answers
    - Include lovable_url if provided
@@ -440,7 +429,7 @@ When enabled, I'll automatically commit and push changes after each successful t
 4. I push to main branch on GitHub
 5. GitHub syncs to Lovable (frontend changes appear instantly)
 
-**Note:** Auto-push works independently of yolo mode, but yolo mode requires it to be enabled.
+**Note:** Auto-push works independently of yolo mode.
 
 **To disable:** Run `/lovable:auto-push off` (or edit this file directly)
 
@@ -448,7 +437,7 @@ When enabled, I'll automatically commit and push changes after each successful t
 [ONLY include if user enabled yolo mode]
 
 > ⚠️ Beta feature - auto-submits Lovable prompts via MCP or browser automation
-> ⚠️ Requires auto-push to be enabled
+> Auto-push is optional; verify GitHub sync before deployment.
 
 - **Status**: [on/off based on Q11 answer]
 - **Deployment Method**: [mcp if MCP was connected at init time; auto otherwise]

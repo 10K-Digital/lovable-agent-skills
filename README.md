@@ -24,6 +24,11 @@ Stop copy-pasting between Lovable and Claude. Stop wrestling with two-way sync. 
 
 ### Provider-neutral agent contract
 
+Version 2.0.1 includes the `init` skill and a shared YOLO authorization policy. Reinitialize an
+existing project to refresh its generated instructions without resetting its settings. The Codex
+manifest declares the official Lovable MCP server inline; `.mcp.json` retains the same direct
+server map for compatibility. Both configurations are checked for consistency by the tests.
+
 Use the `init` skill (`$lovable:init` in Codex) to initialize or reinitialize a project.
 The Claude `/lovable:init-lovable` command uses the same workflow. Existing settings and custom
 instructions are preserved. `deploy.yolo_mode: true` grants standing authorization for in-scope
@@ -114,6 +119,12 @@ Claude: 🤖 Detects backend changes automatically
 
 Done. Zero manual work. No git commands. No deploy commands!
 ```
+
+Enabling YOLO (`/lovable:yolo on`) grants standing authorization for in-scope Lovable prompts,
+including ordinary function deployments and migrations. Set `deploy.confirm_migrations: true`
+if you want approval before each migration; destructive operations still require confirmation.
+Turning YOLO off restores prompt confirmation unless your current request already authorizes it.
+`deploy.mode` selects the transport and does not enable YOLO. Auto-push is independent.
 
 **NEW in v1.8.0:** Lovable MCP integration - deploy via API instead of browser (3-5x faster, no Chrome extension)!
 **IMPROVED in v1.5.0:** Hook-based auto-push for 100% reliable automatic commits and pushes!
@@ -590,7 +601,7 @@ reads the generated `CLAUDE.md` compatibility shim.
 **v1.4.1**
 - **Auto-push independence** - works separately from yolo mode!
 - Auto-push can be ON while yolo mode is OFF (manual deployment)
-- Yolo mode requires auto-push (enforced when enabling)
+- YOLO and auto-push are independent; verify GitHub sync before deployment
 - Clearer configuration and mental model
 
 **v1.4.0**

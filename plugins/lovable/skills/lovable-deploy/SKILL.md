@@ -26,11 +26,13 @@ unrecognized values mean off. An explicit neutral value takes precedence over le
 - Preserve explicit task restrictions such as “do not deploy/publish,” platform approval
   requirements, and confirmation for destructive or irreversible database operations. YOLO
   authorizes in-scope prompts, not unrelated changes or automatic frontend publication.
-- Honor `deploy.confirm_migrations` for migration execution even with YOLO on; that operation
-  gate is separate from routine prompt authorization. Auto-push and auto-deploy remain separate
+- With `deploy.confirm_migrations: true`, confirm migration execution even with YOLO on.
+  With false (the default), ordinary in-scope migrations need no repeated approval.
+  Destructive or irreversible database operations still require confirmation. Auto-push and auto-deploy remain separate
   settings. Do not enable them merely because YOLO is on.
 
-Use the following deterministic fallback order:
+If `deploy.mode` is `manual`, return a prompt without submitting it. Otherwise use the configured
+transport (`mcp` or `browser`); `auto` follows this fallback order:
 
 1. **Official Lovable MCP** at `https://mcp.lovable.dev` when the server and required operation are
    available. Read its tool schema and server instructions before calling it.
@@ -44,7 +46,7 @@ Before deployment:
 - Read `.lovable-agent/config.json` (or the legacy Claude configuration) for the project ID and mode.
 - Scan the changed code for required secret *names* and report missing configuration without exposing
   values.
-- Ask for confirmation before applying destructive or irreversible migrations.
+- Apply the authorization and migration gates above; transport selection never grants authorization.
 
 After deployment, distinguish **accepted** (the agent received the request) from **verified** (the
 response/logs or Preview checks confirm the result). Never claim verification from an asynchronous

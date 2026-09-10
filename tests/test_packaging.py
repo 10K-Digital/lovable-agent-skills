@@ -22,7 +22,7 @@ class PackagingTests(unittest.TestCase):
         self.assertEqual(manifest["name"], "lovable")
         self.assertTrue(SEMVER.fullmatch(manifest["version"]))
         self.assertEqual(manifest["skills"], "./skills/")
-        self.assertEqual(manifest["mcpServers"], "./.mcp.json")
+        self.assertEqual(manifest["mcpServers"], json.loads((ROOT / "plugins/lovable/.mcp.json").read_text()))
         interface = manifest["interface"]
         for field in ("displayName", "shortDescription", "longDescription", "developerName", "category"):
             self.assertTrue(interface[field])
@@ -148,6 +148,28 @@ class MigrationTests(unittest.TestCase):
         gitignore = (self.root / ".gitignore").read_text()
         self.assertIn(".lovable-agent/preview-token.local", gitignore)
         self.assertIn(".claude/lovable-claude/test/preview-token.local", gitignore)
+
+    def test_migration_preserves_explicit_deployment_preferences(self) -> None:
+        for enabled in (True, False):
+            with self.subTest(yolo_mode=enabled):
+                config_path = self.root / ".lovable-agent/config.json"
+                config_path.parent.mkdir(exist_ok=True)
+                deploy = {
+                    "mode": "browser", "yolo_mode": enabled,
+                    "confirm_migrations": True, "custom_setting": "preserve",
+                }
+                config_path.write_text(json.dumps({"deploy": deploy}))
+                result = self.run_migrator()
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertEqual(json.loads(config_path.read_text())["deploy"], deploy)
+
+    def test_migration_does_not_grant_yolo_authorization_from_transport(self) -> None:
+        result = self.run_migrator()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        deploy = json.loads((self.root / ".lovable-agent/config.json").read_text())["deploy"]
+        self.assertEqual(deploy["mode"], "auto")
+        self.assertFalse(deploy.get("yolo_mode", False))
+        self.assertFalse(deploy["confirm_migrations"])
 
     def test_dry_run_does_not_write(self) -> None:
         result = self.run_migrator("--dry-run")
