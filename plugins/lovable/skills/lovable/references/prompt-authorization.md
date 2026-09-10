@@ -22,4 +22,3 @@ unrecognized values mean off. An explicit neutral value takes precedence over le
   With false (the default), ordinary in-scope migrations need no repeated approval.
   Destructive or irreversible database operations still require confirmation. Auto-push and auto-deploy remain separate
   settings. Do not enable them merely because YOLO is on.
-
