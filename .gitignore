@@ -19,3 +19,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+
+# Lovable preview credentials (canonical and legacy paths)
+.lovable-agent/preview-token.local
+.claude/lovable-claude/test/preview-token.local

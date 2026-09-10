@@ -117,10 +117,10 @@ And after yolo auto-deploys (if yolo enabled): off / smoke / all?
 
 ## Phase 4: Generate the Workspace
 
-1. Create `.claude/lovable-claude/test/{plans,profiles,results}` directories
-2. Ensure `.gitignore` contains `.claude/lovable-claude/test/preview-token.local`
+1. Create `.lovable-agent/tests/{plans,profiles,results}` directories
+2. Ensure `.gitignore` contains `.lovable-agent/preview-token.local`
 3. Write `preview-token.local` (if token provided) - per `preview-access.md`
-4. Write `test-config.json` with all settings + `last_synced_commit` = current `git rev-parse --short HEAD`
+4. Write `.lovable-agent/config.json` with testing settings + `last_synced_commit` = current `git rev-parse --short HEAD`
 5. Write each accepted plan as `plans/TP-NNN-slug.md` per `test-plan-format.md`
    - Derive concrete steps from the actual code: real route paths, real button labels (read the JSX), real field names
    - Fill `covers:` with the implementing file paths
@@ -133,7 +133,7 @@ And after yolo auto-deploys (if yolo enabled): off / smoke / all?
 1. Run the access check from `preview-access.md`
 2. Summarize:
 ```
-✅ Test workspace created: .claude/lovable-claude/test/
+✅ Test workspace created: .lovable-agent/tests/
 
 - 7 test plans (4 smoke)
 - 2 profiles (default, admin)

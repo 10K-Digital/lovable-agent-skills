@@ -1,5 +1,5 @@
 ---
-description: Initialize Lovable project context. Scans repo, asks questions, generates CLAUDE.md with project-specific configuration.
+description: Initialize Lovable project context. Scans repo, asks questions, generates provider-neutral .lovable-agent state plus AGENTS.md and a Claude-compatible CLAUDE.md shim.
 ---
 
 # Initialize Lovable Project
@@ -154,7 +154,7 @@ Default: yes (recommended)
 I can test your app in Lovable Preview mode via browser automation -
 after each implementation or as planned end-to-end runs.
 
-This sets up a test workspace at .claude/lovable-claude/test/ with
+This sets up a test workspace at .lovable-agent/tests/ with
 test plans, test user profiles, and results.
 
 To access your Preview I need ONE of:
@@ -173,7 +173,7 @@ Default: no
 1. Ask for the access method (paste tokenized URL, or browser-login)
 2. If a URL is pasted, process it per the testing skill's `preview-access.md` reference:
    - Store the base URL + token expiry date for the CLAUDE.md section
-   - Store the token ONLY in `.claude/lovable-claude/test/preview-token.local` (add to `.gitignore` first - never commit the token)
+   - Store the token ONLY in `.lovable-agent/preview-token.local` (add to `.gitignore` first - never commit the token)
 3. Include the **Preview Testing Configuration** section in the generated CLAUDE.md
 4. After CLAUDE.md generation completes, offer to run the full test wizard:
    ```
@@ -318,7 +318,11 @@ This is required for browser automation.
 
 **Note:** Only ask if user skipped Q5 and is enabling yolo mode (Q11).
 
-4. **Generate CLAUDE.md** in project root with gathered info.
+4. **Generate the provider-neutral project context**:
+   - Create `.lovable-agent/config.json` from `skills/lovable/references/agent-config.md`.
+   - Create `.lovable-agent/context.md` with project-specific context but no secret values.
+   - Create `AGENTS.md` as the canonical instruction entry point.
+   - Generate `CLAUDE.md` from the template below with a pointer to `AGENTS.md`.
 
    - **CRITICAL:** Include the "🚨 IMPORTANT: Always Commit and Push to GitHub" section at the top (after Project Overview)
      - This reminds Claude to ALWAYS commit and push changes so they sync from GitHub to Lovable
@@ -329,10 +333,12 @@ This is required for browser automation.
 
 5. **Confirm setup** with summary.
 
-## CLAUDE.md Template
+## Provider-neutral files and CLAUDE.md Template
 
 ```markdown
 # CLAUDE.md - Lovable Project Context
+
+> Claude Code compatibility shim. Read `AGENTS.md` and `.lovable-agent/config.json` first.
 
 ## Project Overview
 - **Name**: [from package.json]
@@ -469,7 +475,7 @@ When enabled, I'll automatically commit and push changes after each successful t
 [ONLY include if user enabled preview testing in Q8.7]
 
 > Tests run against the Lovable Preview app via browser automation.
-> Test plans live in `.claude/lovable-claude/test/`.
+> Test plans live in `.lovable-agent/tests/` (legacy `.claude/lovable-claude/test/` remains supported).
 
 - **Status**: on
 - **Preview URL**: [base preview URL, WITHOUT token]

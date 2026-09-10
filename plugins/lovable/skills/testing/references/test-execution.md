@@ -6,7 +6,7 @@ Browser automation workflow for `/lovable:test-run` and automatic post-implement
 
 Before any run:
 
-1. **Workspace exists**: `.claude/lovable-claude/test/test-config.json` present
+1. **Workspace exists**: `.lovable-agent/config.json` with `testing.enabled` present
    - If not: "No test workspace found. Run `/lovable:test-init` first."
 2. **Preview access valid**: per `preview-access.md` (token unexpired, or logged-in session)
 3. **Browser automation available**: Claude in Chrome extension connected
@@ -98,7 +98,7 @@ After the run:
    "RESEND_API_KEY is not configured"
 
 Result: 2/3 passed
-📄 Full report: .claude/lovable-claude/test/results/2026-06-10-smoke.md
+📄 Full report: .lovable-agent/tests/results/2026-06-10-smoke.md
 
 Suggested fix for TP-004: add RESEND_API_KEY in Cloud → Secrets, redeploy, re-run:
 /lovable:test-run TP-004
