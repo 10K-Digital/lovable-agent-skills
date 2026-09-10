@@ -8,6 +8,7 @@ All notable changes to the Lovable Claude Code plugin will be documented in this
 - Discoverable `init` skill for preserving and refreshing project configuration and agent shims.
 
 ### Changed
+- Updated installation instructions and repository links to `10K-Digital/lovable-agent-skills`.
 - Integrated the provider-neutral and YOLO development branches, retaining their history.
 - Ordinary migrations default to no repeated approval when YOLO is enabled; explicit migration
   approval preferences and destructive-operation confirmation remain supported.

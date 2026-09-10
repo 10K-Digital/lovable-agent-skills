@@ -206,7 +206,7 @@ Claude Code knows your production URL, database tables, edge functions, secrets,
 
 ```bash
 # In Claude Code, run:
-/plugin marketplace add 10K-Digital/lovable-claude-code
+/plugin marketplace add 10K-Digital/lovable-agent-skills
 
 # Install the plugin:
 /plugin install lovable@10k-digital
@@ -219,7 +219,7 @@ Claude Code knows your production URL, database tables, edge functions, secrets,
 Add the repository marketplace, then install the `lovable` plugin:
 
 ```bash
-codex plugin marketplace add 10K-Digital/lovable-claude-code
+codex plugin marketplace add 10K-Digital/lovable-agent-skills
 ```
 
 Restart the Codex/ChatGPT desktop app, open the Plugins Directory, choose the `10K Digital`
@@ -431,7 +431,7 @@ Plus: No more mistakes from copy-paste errors. No more forgotten secrets. No mor
 
 **Plugin not updating?**
 - Make sure marketplace auto-updates are enabled in Claude Code
-- Or manually: `/plugin marketplace remove 10K-Digital/lovable-claude-code` then re-add
+- Or manually: `/plugin marketplace remove 10K-Digital/lovable-agent-skills` then re-add
 
 **Automation timing out?**
 - Use manual mode: `/lovable:sync --manual`
@@ -516,7 +516,7 @@ Lovable Cloud (deploys)
 - ✅ No credentials stored in the plugin
 - ✅ All automation is transparent (you see what's happening)
 - ✅ Manual fallback always available
-- ✅ Open source ([github.com/10K-Digital/lovable-claude-code](https://github.com/10K-Digital/lovable-claude-code))
+- ✅ Open source ([github.com/10K-Digital/lovable-agent-skills](https://github.com/10K-Digital/lovable-agent-skills))
 
 ### **Browser Automation Details**
 
@@ -636,10 +636,10 @@ MIT—Use it however you want.
 ## **Contributing**
 
 Found a bug? Have a feature request?
-👉 [Open an issue](https://github.com/10K-Digital/lovable-claude-code/issues)
+👉 [Open an issue](https://github.com/10K-Digital/lovable-agent-skills/issues)
 
 ---
 
 ## **Made With ❤️ by [10K Digital](https://10k.digital)**
 
-Questions? [GitHub Issues](https://github.com/10K-Digital/lovable-claude-code/issues)
+Questions? [GitHub Issues](https://github.com/10K-Digital/lovable-agent-skills/issues)

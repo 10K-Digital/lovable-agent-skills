@@ -4,7 +4,7 @@
     "name": "lovable-claude-code",
     "production_url": "",
     "lovable_url": "",
-    "github_url": "https://github.com/10K-Digital/lovable-claude-code",
+    "github_url": "https://github.com/10K-Digital/lovable-agent-skills",
     "backend": "plugin",
     "supabase_ref": "",
     "architecture": "plugin"

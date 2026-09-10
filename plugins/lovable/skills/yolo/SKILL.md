@@ -435,7 +435,7 @@ Fallback - run this prompt manually in Lovable:
 📋 "Deploy the send-email edge function"
 
 💡 Please report this issue at:
-   https://github.com/10kdigital/lovable-claude-code/issues
+   https://github.com/10K-Digital/lovable-agent-skills/issues
 ```
 
 **Timeout:**

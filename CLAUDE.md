@@ -9,10 +9,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a **Claude Code plugin** for integrating with Lovable.dev projects. It's distributed as a plugin, not a typical software project with build steps or test suites.
 
-- **Repository**: https://github.com/10K-Digital/lovable-claude-code
+- **Repository**: https://github.com/10K-Digital/lovable-agent-skills
 - **Current Version**: 2.0.0
 - **Type**: Claude Code plugin marketplace (supports multiple plugins)
-- **Distribution**: Via Claude Code plugin marketplace (10K-Digital/lovable-claude-code)
+- **Distribution**: Via Claude Code plugin marketplace (10K-Digital/lovable-agent-skills)
 
 ## Architecture
 
@@ -375,10 +375,10 @@ This plugin has no automated tests. To test:
 
 ## Plugin Distribution
 
-- **Installation**: `/plugin marketplace add 10K-Digital/lovable-claude-code`
+- **Installation**: `/plugin marketplace add 10K-Digital/lovable-agent-skills`
 - **Namespace**: `lovable` (commands are `/lovable:*`)
 - **Auto-updates**: Users can enable in Claude Code settings
-- **Marketplace**: https://github.com/10K-Digital/lovable-claude-code
+- **Marketplace**: https://github.com/10K-Digital/lovable-agent-skills
 
 ## Key Files to Understand
 

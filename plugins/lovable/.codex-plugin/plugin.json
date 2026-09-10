@@ -5,8 +5,8 @@
   "author": {
     "name": "Felipe Matos from 10K Digital"
   },
-  "repository": "https://github.com/10K-Digital/lovable-claude-code",
-  "homepage": "https://github.com/10K-Digital/lovable-claude-code",
+  "repository": "https://github.com/10K-Digital/lovable-agent-skills",
+  "homepage": "https://github.com/10K-Digital/lovable-agent-skills",
   "license": "MIT",
   "keywords": [
     "lovable",
@@ -36,7 +36,7 @@
       "MCP",
       "Testing"
     ],
-    "websiteURL": "https://github.com/10K-Digital/lovable-claude-code",
+    "websiteURL": "https://github.com/10K-Digital/lovable-agent-skills",
     "defaultPrompt": [
       "Initialize this Lovable project for coding agents.",
       "Deploy the changed Lovable backend safely.",
