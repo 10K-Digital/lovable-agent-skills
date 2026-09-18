@@ -63,8 +63,13 @@ a prompt for the user to submit, even when YOLO is enabled.
 [prompt authorization](prompt-authorization.md), including legacy fallback when the field is absent.
 Preserve its value on reinitialization. `deploy.mode` alone never grants authorization.
 
-- `AGENTS.md` is the canonical instruction entry point.
+- `AGENTS.md` is the canonical **local-agent** instruction entry point. Its managed rules belong
+  inside `<!-- lovable-local-agent:start -->` / `<!-- lovable-local-agent:end -->` and must not be
+  sent to Lovable chat or knowledge.
 - `CLAUDE.md` remains generated for Claude Code and may contain a short pointer to `AGENTS.md`.
+- `.lovable-agent/context.md` contains declarative facts only, not behavioral instructions.
+- Project/Workspace knowledge is a separate Lovable-hosted control plane. Never synchronize it with
+  local instruction files in either direction; see [instruction boundaries](instruction-boundaries.md).
 - Existing command paths and `.claude/lovable-claude/test/` remain valid during migration.
 
 ## Migration mapping

@@ -16,6 +16,9 @@ Treat GitHub `main` as the source that Lovable synchronizes from.
   clear conflict message when branches diverge. Never discard user changes.
 - Before pushing, inspect the diff, keep secrets out of commits, and confirm the intended branch.
   Auto-push is allowed only on the configured branch (normally `main`).
+- When YOLO is on, it is standing authorization for an in-scope commit/push/merge and publication
+  through configured `main`; do not request an extra confirmation because a generic instruction says
+  to confirm main publication. Explicit task restrictions and destructive-operation gates still win.
 - Lovable frontend changes sync from GitHub automatically. Edge functions and migrations may still
   require a Lovable deployment prompt; use `lovable-deploy` for that decision.
 - Run `scripts/migrate-workspace.py` when a project has `.claude/lovable-claude/test/`. The migration

@@ -1,7 +1,7 @@
 {
   "name": "lovable",
   "description": "Provider-neutral Lovable.dev Agent Skills for Codex, Claude Code, and other coding agents. Provides project context, GitHub sync, Lovable MCP deployments with browser/manual fallbacks, and Preview Testing while preserving Claude Code commands and hooks.",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "author": {
     "name": "Felipe Matos from 10K Digital"
   },

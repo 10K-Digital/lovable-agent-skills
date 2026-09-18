@@ -17,6 +17,10 @@ For initialization or reinitialization, use `../init/SKILL.md`. Before submittin
 prompt, apply [prompt authorization](references/prompt-authorization.md): YOLO on grants standing
 authorization; generic confirmation rules apply when YOLO is off.
 
+Apply [credit efficiency](references/credit-efficiency.md) before interacting with Lovable. Perform
+all possible work locally, use browser Cloud pages rather than MCP/chat to inspect backend state,
+and consolidate indispensable hosted operations into one minimal prompt.
+
 This skill enables Claude Code to work effectively with Lovable.dev projects while respecting Lovable's deployment requirements.
 
 ## When to Use This Skill
