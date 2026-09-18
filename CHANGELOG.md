@@ -2,6 +2,25 @@
 
 All notable changes to the Lovable Claude Code plugin will be documented in this file.
 
+## [2.0.3] - 2026-09-18
+
+### Fixed
+- Isolated local-agent instructions (`AGENTS.md`, `CLAUDE.md`, and skills) from Lovable-hosted
+  Project/Workspace knowledge and chat prompts, preventing instructions from contaminating the
+  opposite execution environment.
+- Defined `.lovable-agent/context.md` as facts-only and added idempotent local-only markers for the
+  generated `AGENTS.md` section.
+
+## [2.0.2] - 2026-09-18
+
+### Changed
+- Made credit conservation the default: local work first, browser Cloud inspection instead of MCP
+  queries, and one consolidated Lovable prompt only for essential hosted-backend operations.
+- Added guarded preference for fixes explicitly identified by Lovable as zero-credit.
+- Added browser review of Project/Workspace knowledge with mandatory user approval before edits.
+- Clarified that YOLO authorizes in-scope publication through `main`, overriding generic redundant
+  confirmation instructions while preserving explicit restrictions and destructive-operation gates.
+
 ## [2.0.1] - 2026-09-10
 
 ### Added

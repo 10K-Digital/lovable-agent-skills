@@ -55,11 +55,8 @@ Before deploying:
 3. Then deploy the edge function
 ```
 
-6. **Provide verification prompt**:
-```
-After deploying, verify with:
-> "Show logs for [function-name] edge function"
-```
+6. **Verify without another prompt**: inspect function state/logs in browser Cloud or call the
+   endpoint directly. Do not spend a second MCP/chat call merely to request logs.
 
 ## Check for Yolo Mode
 
@@ -73,12 +70,8 @@ After generating the prompt, check if yolo mode is enabled:
 2. **If `Status: on`:**
    - ✅ Yolo mode is enabled
    - Activate yolo skill (see `/skills/yolo/SKILL.md`)
-   - Choose deployment method based on `Deployment Method` field:
-     - `mcp` or `auto`: Check if Lovable MCP tools are available
-       - If MCP available: Use MCP `send_message` to submit the prompt
-       - If MCP unavailable and `auto`: Fall back to browser automation
-       - If MCP unavailable and `mcp`: Show manual prompt
-     - `browser`: Use browser automation workflow
+   - Delegate transport and credit minimization to the yolo skill. In `auto`, use browser first and
+     MCP only when browser submission is unavailable; submit one consolidated prompt.
    - Run tests if `Testing: on`
    - Show deployment summary
    - **Exit** (don't show manual prompt)
@@ -90,7 +83,7 @@ After generating the prompt, check if yolo mode is enabled:
      ```
      💡 **Tip:** Automate deployments with yolo mode!
         Run: /lovable:yolo on
-        For fastest automation: /lovable:connect-mcp  then  /lovable:yolo on --mcp
+        Browser auto mode minimizes charged MCP calls.
      ```
 
 ## Example Output
@@ -124,13 +117,12 @@ Before deploying, add STRIPE_SECRET_KEY to Cloud → Secrets:
 📋 **LOVABLE PROMPT:**
 > "Deploy all edge functions"
 
-After deployment, verify:
-> "Show logs for send-email edge function"
-> "Show logs for process-payment edge function"
+After deployment, verify both functions in browser Cloud logs/status or with safe direct calls;
+do not submit another Lovable prompt.
 
 💡 **Tip:** Automate deployments with yolo mode!
    Run: /lovable:yolo on
-   For fastest automation: /lovable:connect-mcp  then  /lovable:yolo on --mcp
+   Browser auto mode minimizes charged MCP calls.
 ```
 
 ### Example 2: Yolo Mode Enabled (Automated)

@@ -536,11 +536,11 @@ After running `/lovable:init`, your project gets:
 
 ```
 your-project/
-├── AGENTS.md              # Provider-neutral instructions (canonical)
-├── CLAUDE.md              # Claude Code compatibility shim
+├── AGENTS.md              # Canonical instructions for the local coding agent
+├── CLAUDE.md              # Local Claude Code compatibility shim
 ├── .lovable-agent/
 │   ├── config.json        # Project/sync/deploy/testing metadata
-│   ├── context.md        # Generated context without secret values
+│   ├── context.md         # Declarative project facts without secret values or instructions
 │   ├── preview-token.local # Access token (gitignored, 7-day validity)
 │   └── tests/             # Plans, profiles, and results
 │       ├── plans/
@@ -550,14 +550,35 @@ your-project/
 └── ... your regular code
 ```
 
-Edit `.lovable-agent/config.json` and `AGENTS.md` to customize the shared workflow. Claude Code also
-reads the generated `CLAUDE.md` compatibility shim.
+Edit `.lovable-agent/config.json` and `AGENTS.md` to customize the local-agent workflow. Claude Code
+also reads the generated `CLAUDE.md` compatibility shim. These local files are intentionally isolated
+from Lovable Project/Workspace knowledge: do not copy instructions between the two environments.
+The plugin treats hosted knowledge as remote configuration to audit, not as authority for the local
+coding agent.
 
 ---
 
 ## **Version History**
 
-**v2.0.0** (Latest) ⭐
+**v2.0.3** (Latest) ⭐
+- Aggressive credit conservation: local implementation/review/testing, browser Cloud inspection,
+  and one consolidated Lovable prompt only for essential hosted-backend operations
+- Browser-first YOLO automation with Lovable MCP reserved as a fallback
+- Explicit isolation between local-agent instructions and Lovable Project/Workspace knowledge
+- Facts-only `.lovable-agent/context.md` and idempotent local-only `AGENTS.md` section markers
+- YOLO standing authorization for in-scope publication through `main`, while retaining destructive
+  operation gates and explicit approval for hosted knowledge changes
+
+**v2.0.2**
+- Added the shared credit-efficiency policy and guarded zero-credit remediation workflow
+- Replaced charged status/log prompts with browser Cloud, direct, local, or Preview verification
+
+**v2.0.1**
+- Added the discoverable, preservation-oriented `init` skill
+- Unified neutral and Claude-compatible YOLO authorization behavior
+- Fixed current Codex manifest validation and hook packaging compatibility
+
+**v2.0.0**
 - Provider-neutral Agent Skills for Codex and other coding agents
 - Canonical `.lovable-agent/` project configuration and Preview test workspace
 - `AGENTS.md` instructions with Claude Code compatibility shims

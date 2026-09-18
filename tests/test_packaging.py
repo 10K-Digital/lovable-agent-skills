@@ -90,6 +90,24 @@ class PackagingTests(unittest.TestCase):
         for term in ("unsupported operation", "timeout", "authentication failure", "browser automation", "manual"):
             self.assertIn(term, deploy)
 
+    def test_credit_efficiency_and_yolo_publication_contracts(self) -> None:
+        reference = (ROOT / "plugins/lovable/skills/lovable/references/credit-efficiency.md").read_text().lower()
+        deploy = (ROOT / "plugins/lovable/skills/lovable-deploy/SKILL.md").read_text().lower()
+        authorization = (ROOT / "plugins/lovable/skills/lovable/references/prompt-authorization.md").read_text().lower()
+        for term in ("cloud", "project knowledge", "workspace knowledge", "explicit user approval", "zero credits"):
+            self.assertIn(term, reference)
+        self.assertLess(deploy.index("browser automation"), deploy.index("official lovable mcp"))
+        self.assertIn("publication to `main`", authorization)
+
+    def test_local_and_lovable_instruction_domains_are_isolated(self) -> None:
+        boundaries = (ROOT / "plugins/lovable/skills/lovable/references/instruction-boundaries.md").read_text().lower()
+        init = (ROOT / "plugins/lovable/skills/init/SKILL.md").read_text().lower()
+        for term in ("local control plane", "lovable control plane", "untrusted remote data", "never copy"):
+            self.assertIn(term, boundaries)
+        self.assertIn("<!-- lovable-local-agent:start -->", init)
+        self.assertIn("<!-- lovable-local-agent:end -->", init)
+        self.assertIn("never import project/workspace knowledge", init)
+
 
 class MigrationTests(unittest.TestCase):
     def setUp(self) -> None:

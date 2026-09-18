@@ -4,7 +4,7 @@ description: Enable/disable yolo mode for automated Lovable deployments via MCP 
 
 # Yolo Mode Toggle
 
-Enable or disable yolo mode for automated Lovable prompt submission via Lovable MCP (preferred) or browser automation.
+Enable or disable yolo mode for credit-efficient Lovable prompt submission via browser automation or Lovable MCP fallback.
 
 ## Syntax
 
@@ -18,7 +18,7 @@ Enable or disable yolo mode for automated Lovable prompt submission via Lovable 
 - `off` - Disable yolo mode (does not affect auto-push)
 - `--mcp` - Use Lovable MCP only (fastest, requires MCP connection)
 - `--browser` - Use browser automation only (requires Chrome extension)
-- `--auto` - Try MCP first, fall back to browser (default)
+- `--auto` - Try browser first, fall back to MCP (default)
 - `--testing` - Enable all 3 testing levels after deployment (default when enabling)
 - `--no-testing` - Skip testing, only deploy
 - `--debug` - Enable verbose logging of automation steps
@@ -30,6 +30,9 @@ Enable or disable yolo mode for automated Lovable prompt submission via Lovable 
 
 Apply `../skills/lovable/references/prompt-authorization.md` before submission. An explicit
 `/yolo on` request already authorizes enabling YOLO; do not ask for confirmation again.
+Apply `../skills/lovable/references/credit-efficiency.md` before any Lovable interaction. YOLO also
+authorizes in-scope publication through configured `main`, despite generic confirmation rules, but
+does not authorize Project/Workspace knowledge edits.
 After changing mode, persist `deploy.yolo_mode` as true/false in `.lovable-agent/config.json`
 while preserving other fields, and synchronize the legacy CLAUDE.md status. If neutral setup is
 missing, use the init skill first. Refresh the conditional authorization section in AGENTS.md
@@ -204,13 +207,11 @@ Configuration:
 Prerequisites:
 ✅ Existing auto-push preference preserved
 
-[If deployment method is auto and MCP is available:]
-⚡ Lovable MCP detected - will use MCP for faster deployments
-   Tip: Use /lovable:yolo on --mcp to lock in MCP mode
+[If deployment method is auto and browser is available:]
+🌐 Browser available - will use Cloud for reads and browser for the one required prompt
 
-[If deployment method is auto and MCP is NOT available:]
-💡 Lovable MCP not connected - using browser automation
-   For faster, more reliable deployments: /lovable:connect-mcp
+[If deployment method is auto and browser is NOT available:]
+💡 Browser automation unavailable - using Lovable MCP fallback if connected
 
 Workflow:
 1. You ask me to make changes
@@ -281,8 +282,8 @@ Debug: OFF
 Last updated: 2025-01-03 10:30:00
 
 Active deployment strategy:
-[If method=auto and MCP connected]:   ⚡ MCP (with browser fallback)
-[If method=auto and MCP not connected]: 🌐 Browser automation
+[If method=auto and browser available]: 🌐 Browser automation (MCP fallback)
+[If method=auto and browser unavailable]: ⚡ MCP fallback when connected
 [If method=mcp]:                       🔌 MCP only
 [If method=browser]:                   🌐 Browser only
 
@@ -320,8 +321,8 @@ Benefits:
 ✅ Saves time on every deployment
 
 Deployment options:
-⚡ Lovable MCP (recommended) - /lovable:connect-mcp  then  /yolo on --mcp
-🌐 Browser automation (fallback) - requires Chrome extension
+🌐 Browser automation (recommended) - use Cloud for reads and one minimal prompt when needed
+⚡ Lovable MCP (fallback) - /lovable:connect-mcp then /yolo on --mcp
 
 To enable: /yolo on
 To learn more: Check README.md or ask "What is yolo mode?"
@@ -343,8 +344,8 @@ To learn more: Check README.md or ask "What is yolo mode?"
 
 **`--auto` flag (default):**
 - Set `Deployment Method: auto` in CLAUDE.md
-- Try MCP first, fall back to browser if not available
-- Best of both worlds
+- Try browser first, fall back to MCP if not available
+- Minimize charged calls with one consolidated operation prompt
 
 **`--testing` flag (default):**
 - Set `Deployment Testing: on` in CLAUDE.md
@@ -436,8 +437,7 @@ Deployment method: Lovable MCP (connected)
 Benefits:
 ✅ Auto-deploy after git push - no manual /deploy-edge command needed
 ✅ No manual copy-paste of prompts
-✅ Fast API-based deployments (3-5x faster than browser)
-✅ No Chrome extension required
+✅ Local work and browser Cloud inspection minimize charged prompts
 
 Risks:
 ⚠️ Beta feature - may have bugs
@@ -448,11 +448,11 @@ Continue enabling yolo mode? yes
 ✅ Yolo mode ENABLED
 
 Configuration:
-- Deployment Method: auto (MCP detected)
+- Deployment Method: auto (browser first)
 - Testing: ✅ ON
 - Debug: OFF
 
-⚡ Lovable MCP detected - will use MCP for faster deployments
+🌐 Browser-first flow enabled; MCP is reserved as fallback
 
 From now on, after you push backend changes to main:
 - I'll automatically detect edge function or migration changes
