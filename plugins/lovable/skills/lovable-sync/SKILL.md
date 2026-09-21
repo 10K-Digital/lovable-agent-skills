@@ -10,8 +10,9 @@ description: >-
 
 Treat GitHub `main` as the source that Lovable synchronizes from.
 
-- Read `.lovable-agent/config.json` first. Honor `sync.branch`, `sync.auto_sync`, and
-  `sync.auto_push`; fall back to the legacy `CLAUDE.md` settings when the neutral file is absent.
+- Read `sync.branch`, `sync.auto_sync`, and `sync.auto_push` through
+  `~/.codex/skills/lovable-project/scripts/read-context.py --project . --section policies`; fall back to legacy `CLAUDE.md`
+  settings when the neutral file is absent.
 - Before pulling, require a clean worktree. Fetch first, compare local/remote/base, and stop with a
   clear conflict message when branches diverge. Never discard user changes.
 - Before pushing, inspect the diff, keep secrets out of commits, and confirm the intended branch.

@@ -8,18 +8,37 @@ import json
 from pathlib import Path
 
 
+TANSTACK_PACKAGES = {"@tanstack/react-start", "@tanstack/start"}
+
+
+def package_indicates_tanstack(root: Path) -> list[str]:
+    """Return package evidence for TanStack Start without inspecting application source."""
+    path = root / "package.json"
+    try:
+        package = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    if not isinstance(package, dict):
+        return []
+    evidence: list[str] = []
+    for field in ("dependencies", "devDependencies"):
+        values = package.get(field, {})
+        if isinstance(values, dict) and TANSTACK_PACKAGES & set(values):
+            evidence.append(f"package.json:{field}")
+    return evidence
+
+
 def detect_architecture(root: Path) -> dict[str, object]:
-    markers = {
-        "tanstack-start": root / "app.config.ts",
-        "vite-spa": root / "vite.config.ts",
-    }
-    matches = [name for name, marker in markers.items() if marker.is_file()]
-    if len(matches) == 1:
-        return {"architecture": matches[0], "markers": [str(markers[matches[0]].name)]}
-    return {
-        "architecture": "ambiguous" if matches else "unknown",
-        "markers": [str(markers[name].name) for name in matches],
-    }
+    tanstack_evidence = package_indicates_tanstack(root)
+    app_config = root / "app.config.ts"
+    vite_config = root / "vite.config.ts"
+    if tanstack_evidence:
+        return {"architecture": "tanstack-start", "markers": tanstack_evidence}
+    if app_config.is_file():
+        return {"architecture": "tanstack-start", "markers": [app_config.name]}
+    if vite_config.is_file():
+        return {"architecture": "vite-spa", "markers": [vite_config.name]}
+    return {"architecture": "unknown", "markers": []}
 
 
 def main() -> int:

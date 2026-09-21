@@ -11,6 +11,9 @@ Set up Claude Code to work with this Lovable.dev project.
 First run `../skills/init/SKILL.md` for both initialization and reinitialization. Its preservation
 and authorization rules govern this command. The questionnaire below is a reference for missing
 settings only: skip answered/inferable questions and never reset existing preferences.
+Read existing policy settings with
+`python3 ~/.codex/skills/lovable-project/scripts/read-context.py --project . --section policies`; do not
+preload the full configuration or inventory before a requested configuration write.
 Generate the conditional YOLO authorization rule in AGENTS.md and CLAUDE.md using
 `../skills/lovable/references/prompt-authorization.md`; persist `deploy.yolo_mode` as a boolean.
 
@@ -335,7 +338,8 @@ This is required for browser automation.
 ```markdown
 # CLAUDE.md - Lovable Project Context
 
-> Claude Code compatibility shim. Read `AGENTS.md` and `.lovable-agent/config.json` first.
+> Claude Code compatibility shim. Read `AGENTS.md` and the policy reader first:
+> `python3 ~/.codex/skills/lovable-project/scripts/read-context.py --project . --section policies`.
 
 ## Project Overview
 - **Name**: [from package.json]

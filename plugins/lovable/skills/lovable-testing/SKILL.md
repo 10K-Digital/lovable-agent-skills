@@ -1,36 +1,32 @@
 ---
 name: lovable-testing
 description: >-
-  Run and maintain Lovable Preview tests from Codex, Claude Code, or another Agent Skills runtime.
-  Use for test-plan generation, smoke/changed/all runs, test workspace migration, preview token
-  handling, or keeping tests synchronized with changed features.
+  Create, maintain, and run Lovable Preview test plans across Codex, Claude Code, and compatible
+  Agent Skills runtimes. Use for Preview access, test-plan sync, or smoke/changed/all runs.
 ---
 
 # Lovable Preview Testing
 
-The canonical user-project test workspace is:
+Use this as the maintained Preview-testing workflow. The `testing` skill and `/lovable:test-*`
+commands remain compatibility aliases.
 
-```text
-.lovable-agent/
-├── config.json
-├── context.md
-├── preview-token.local       # ignored credential, never committed
-└── tests/
-    ├── plans/
-    ├── profiles/
-    └── results/
-```
+1. Read only policy settings before selecting automation:
 
-- Treat Preview as non-production. Mark destructive, paid, or irreversible steps `[MANUAL]`.
-- Store only the base preview URL and token dates in `config.json`; store the token itself only in
-  `.lovable-agent/preview-token.local`, after ensuring the path is in `.gitignore`.
-- Prefer a valid stored token, then a logged-in browser session, then a manual checklist. Never block
-  implementation solely because browser access is unavailable.
-- After implementation or deployment, run the smallest affected plan set (`--changed` or `--smoke`)
-  before offering `--all`.
-- Keep `covers:` paths accurate and update the last-sync commit after a successful plan sync.
-- Migrate `.claude/lovable-claude/test/` with `scripts/migrate-workspace.py`; preserve the legacy
-  path as a read-compatible alias until the user opts into cleanup.
+   ```bash
+   python3 ~/.codex/skills/lovable-project/scripts/read-context.py --project . --section policies
+   ```
 
-The existing `../testing/` skill and its references remain the Claude command implementation. Read
-`../lovable/references/agent-config.md` for the neutral config schema and migration mapping.
+   Read individual test plans, profiles, or the token file only when the selected operation needs
+   them. Never preload the full config or inventory. The Preview token remains only in the ignored
+   `.lovable-agent/preview-token.local` path.
+2. Keep destructive, paid, or irreversible test steps `[MANUAL]`. Prefer the smallest affected
+   plan set (`--changed` or `--smoke`) and treat Preview as non-production.
+3. Use [test wizard](../testing/references/test-wizard.md) for setup and sync,
+   [preview access](../testing/references/preview-access.md) for credentials, and
+   [test execution](../testing/references/test-execution.md) for runs. These retained paths keep
+   Claude commands working.
+4. If browser access is unavailable, produce a manual checklist and continue. Record failures
+   accurately and do not expose tokens in context, reports, or logs.
+
+The legacy workspace `.claude/lovable-claude/test/` remains readable. Migrate it with
+`scripts/migrate-workspace.py` without deleting it.

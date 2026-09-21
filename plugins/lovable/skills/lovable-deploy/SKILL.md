@@ -10,11 +10,16 @@ description: >-
 
 ## Lovable prompt authorization
 
-Read `.lovable-agent/config.json` → `deploy.yolo_mode` first. An explicit boolean `true`
-enables YOLO; `false` disables it. If the field is absent, use legacy `yolo_mode: on/true`
-or **Status: on/true** in the CLAUDE.md Yolo Mode Configuration section. Missing or
-unrecognized values mean off. An explicit neutral value takes precedence over legacy settings.
-`deploy.mode: auto` selects transport; it does not enable YOLO.
+Read the safe policy slice first:
+
+```bash
+python3 ~/.codex/skills/lovable-project/scripts/read-context.py --project . --section policies
+```
+
+An explicit `deploy.yolo_mode: true` enables YOLO; `false` disables it. If the field is absent,
+use legacy `yolo_mode: on/true` or **Status: on/true** in the CLAUDE.md Yolo Mode Configuration
+section. Missing or unrecognized values mean off. An explicit neutral value takes precedence over
+legacy settings. `deploy.mode: auto` selects transport; it does not enable YOLO.
 
 - **YOLO on:** The user has granted standing authorization to submit Lovable prompts needed
   for the requested task, through MCP or browser, including prompts that consume Lovable credits.
@@ -43,7 +48,9 @@ transport (`mcp` or `browser`); `auto` follows this fallback order:
 Before deployment:
 
 - Confirm GitHub has the latest commit and allow the normal GitHub → Lovable sync delay.
-- Read `.lovable-agent/config.json` (or the legacy Claude configuration) for the project ID and mode.
+- Read only the needed project identifier after policy selection; do not preload the full config or
+  inventory. Use `read-context.py --project . --section inventory` only when Edge Function or
+  migration inventory is needed; it intentionally excludes secret metadata.
 - Scan the changed code for required secret *names* and report missing configuration without exposing
   values.
 - Apply the authorization and migration gates above; transport selection never grants authorization.

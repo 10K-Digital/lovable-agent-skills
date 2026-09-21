@@ -2,11 +2,12 @@
 
 ## Lovable prompt authorization
 
-Read `.lovable-agent/config.json` → `deploy.yolo_mode` first. An explicit boolean `true`
-enables YOLO; `false` disables it. If the field is absent, use legacy `yolo_mode: on/true`
-or **Status: on/true** in the CLAUDE.md Yolo Mode Configuration section. Missing or
-unrecognized values mean off. An explicit neutral value takes precedence over legacy settings.
-`deploy.mode: auto` selects transport; it does not enable YOLO.
+Read policy settings first with
+`python3 ~/.codex/skills/lovable-project/scripts/read-context.py --project . --section policies`.
+An explicit `deploy.yolo_mode: true` enables YOLO; `false` disables it. If the field is absent,
+use legacy `yolo_mode: on/true` or **Status: on/true** in the CLAUDE.md Yolo Mode Configuration
+section. Missing or unrecognized values mean off. An explicit neutral value takes precedence over
+legacy settings. `deploy.mode: auto` selects transport; it does not enable YOLO.
 
 - **YOLO on:** The user has granted standing authorization to submit Lovable prompts needed
   for the requested task, through MCP or browser, including prompts that consume Lovable credits.

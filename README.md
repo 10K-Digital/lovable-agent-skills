@@ -29,6 +29,17 @@ existing project to refresh its generated instructions without resetting its set
 manifest declares the official Lovable MCP server inline; `.mcp.json` retains the same direct
 server map for compatibility. Both configurations are checked for consistency by the tests.
 
+Before a local installation, the source identity can be recorded and checked without reading or
+editing user-project state:
+
+```bash
+python3 plugins/lovable/scripts/source-integrity.py --source plugins/lovable
+python3 plugins/lovable/scripts/source-integrity.py --source plugins/lovable --check /path/to/installed/lovable
+```
+
+The output contains the manifest version and a deterministic SHA-256 over the plugin source. The
+check command is read-only; install the verified source with the runtime's normal plugin installer.
+
 Use the `init` skill (`$lovable:init` in Codex) to initialize or reinitialize a project.
 The Claude `/lovable:init-lovable` command uses the same workflow. Existing settings and custom
 instructions are preserved. `deploy.yolo_mode: true` grants standing authorization for in-scope

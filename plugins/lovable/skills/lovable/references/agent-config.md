@@ -4,6 +4,11 @@
 secret metadata, never secret values. The file is intentionally JSON so Codex, Claude Code, and
 other agents can read it without a provider-specific parser.
 
+For ordinary decisions, use `~/.codex/skills/lovable-project/scripts/read-context.py --project <project> --section policies`
+instead of loading this file. It emits only whitelisted sync, deploy, and testing settings. Select
+`--section inventory` only when function or migration discovery is needed; it excludes
+`inventory.secrets`. Read or merge the full configuration only for a requested configuration write.
+
 ## Schema
 
 ```json
@@ -26,7 +31,13 @@ other agents can read it without a provider-specific parser.
   "deploy": {
     "mode": "auto",
     "yolo_mode": false,
+    "auto_deploy": false,
+    "control_priority": ["lovable-mcp", "in-app-browser", "manual"],
     "confirm_migrations": false,
+    "deployment_testing": true,
+    "auto_run_tests": false,
+    "debug": false,
+    "persist_across_sessions": false,
     "test_after_deploy": "off"
   },
   "testing": {

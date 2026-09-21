@@ -11,9 +11,10 @@ description: >-
 Use this skill for “init”, “initialize”, “reinitialize”, or “refresh Lovable project context”.
 Resolve helper and reference paths relative to this installed plugin, not the target repository.
 
-1. Read existing `AGENTS.md`, `CLAUDE.md`, `.lovable-agent/config.json`, and
-   `.lovable-agent/context.md`. Read [project context](../lovable-project/SKILL.md) and the
-   [configuration schema](../lovable/references/agent-config.md).
+1. Read existing `AGENTS.md`, `CLAUDE.md`, and `.lovable-agent/context.md`. Read policy settings
+   through `python3 ~/.codex/skills/lovable-project/scripts/read-context.py --project . --section policies`.
+   Read the full configuration only when merging it for a write, never as automatic context. Read
+   [project context](../lovable-project/SKILL.md) and the [configuration schema](../lovable/references/agent-config.md).
 2. Inspect package metadata, Git remotes, application directories, Edge Functions, and migrations.
    Run `python3 <plugin-root>/scripts/detect-architecture.py <project-root>` when available.
    Resolve ambiguous architecture from actual files; never guess a project URL or backend.
@@ -26,10 +27,11 @@ Resolve helper and reference paths relative to this installed plugin, not the ta
 4. If a legacy test workspace exists, use `scripts/migrate-workspace.py` from the plugin (inspect
    its usage first). Preserve existing canonical tests and ignored local tokens. Ensure token paths
    are ignored before storing credentials; never place tokenized URLs in generated context.
-5. Merge `.lovable-agent/config.json` and refresh factual inventory/context. Do not replace user
-   prose, custom instructions, settings, tests, or credentials. If JSON is malformed, report the
-   error and preserve the file rather than resetting it. Keep a Claude-compatible `CLAUDE.md` shim
-   pointing to the neutral files.
+5. Merge `.lovable-agent/config.json` only for the requested write and refresh only the factual
+   context relevant to that request. Select inventory with the policy reader only when needed; it
+   never returns secret metadata. Do not replace user prose, custom instructions, settings, tests,
+   or credentials. If JSON is malformed, report the error and preserve the file rather than
+   resetting it. Keep a Claude-compatible `CLAUDE.md` shim pointing to the neutral files.
 6. Create or update the Lovable-managed section in `AGENTS.md` using the
    [prompt authorization rules](../lovable/references/prompt-authorization.md). Include the explicit
    rule: **YOLO on grants standing authorization for in-scope Lovable prompts; generic prompt
