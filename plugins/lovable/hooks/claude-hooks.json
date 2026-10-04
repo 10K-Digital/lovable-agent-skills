@@ -1,7 +1,7 @@
 {
   "description": "Lovable Claude Code hooks for auto-sync, auto-push and auto-deploy",
   "hooks": {
-    "Start": [
+    "SessionStart": [
       {
         "hooks": [
           {
