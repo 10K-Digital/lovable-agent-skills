@@ -42,6 +42,10 @@ free read-only MCP tools are allowed for inspection (only `send_message` and `cr
 credits); and the skills reflect the retirement of Test/Live environments, Drizzle migration records,
 and publish-time security checks.
 
+Version 2.1.1 fixes the Claude Code `SessionStart` hook error (`/hooks/auto-sync.sh: No such file or
+directory`): the Claude Code manifest now lives at `plugins/lovable/.claude-plugin/plugin.json`, where
+Claude Code looks for it. Update the plugin to pick up the fix.
+
 ### Provider-neutral agent contract
 
 Version 2.0.1 includes the `init` skill and a shared YOLO authorization policy. Reinitialize an
@@ -581,7 +585,23 @@ coding agent.
 
 ## **Version History**
 
-**v2.0.3** (Latest) ⭐
+**v2.1.1** (Latest) ⭐
+- Claude Code now reads the plugin manifest from the canonical `plugins/lovable/.claude-plugin/plugin.json`
+  and loads its own `claude-hooks.json`
+- Fixed the `SessionStart` hook error (`/hooks/auto-sync.sh: No such file or directory`) by using
+  `${CLAUDE_PLUGIN_ROOT}` in `hooks.json`
+
+**v2.1.0**
+- **Lovable Drafts** - new `lovable-drafts` skill and `/lovable:draft` command to create, build in,
+  review, accept, or discard drafts through the official Lovable MCP server
+- Opt-in `deploy.use_drafts: "prefer"` setting; accepting a draft always needs your explicit acceptance
+- MCP credit policy updated: only `send_message` and `create_project` use credits, so free read-only
+  tools are allowed for inspection
+- The local-agent section of `AGENTS.md`/`CLAUDE.md` tells Lovable's hosted agent it does not apply to it
+- Notes on the retirement of Test/Live environments, Drizzle migration records, approval pauses, and
+  publish-time security checks
+
+**v2.0.3**
 - Aggressive credit conservation: local implementation/review/testing, browser Cloud inspection,
   and one consolidated Lovable prompt only for essential hosted-backend operations
 - Browser-first YOLO automation with Lovable MCP reserved as a fallback

@@ -2,6 +2,19 @@
 
 All notable changes to the Lovable Claude Code plugin will be documented in this file.
 
+## [2.1.1] - 2026-11-26
+
+### Fixed
+- Claude Code now honors the plugin manifest: it moved from `plugins/lovable/plugin.json` to the
+  canonical `plugins/lovable/.claude-plugin/plugin.json`, so Claude Code loads `claude-hooks.json`
+  instead of autodiscovering the Codex `hooks.json` (thanks @ToRvaLDz, #10).
+- The `SessionStart` hook in `hooks.json` uses `${CLAUDE_PLUGIN_ROOT}` instead of the undefined
+  `${PLUGIN_ROOT}`, which expanded to `/hooks/auto-sync.sh` and failed at every session start.
+
+### Changed
+- `CLAUDE.md`, `AGENTS.md` and the packaging test point to the new manifest path; the test now checks
+  the full `${CLAUDE_PLUGIN_ROOT}` variable.
+
 ## [2.1.0] - 2026-11-26
 
 ### Added
