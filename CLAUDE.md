@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a **Claude Code plugin** for integrating with Lovable.dev projects. It's distributed as a plugin, not a typical software project with build steps or test suites.
 
 - **Repository**: https://github.com/10K-Digital/lovable-agent-skills
-- **Current Version**: 2.0.0
+- **Current Version**: 2.1.0
 - **Type**: Claude Code plugin marketplace (supports multiple plugins)
 - **Distribution**: Via Claude Code plugin marketplace (10K-Digital/lovable-agent-skills)
 
@@ -31,6 +31,7 @@ plugins/                     # Plugin directory (one folder per plugin)
     │   ├── init-lovable.md  # Initialize project context
     │   ├── map-codebase.md  # Generate Project Structure Map (NEW in v1.7.0)
     │   ├── deploy-edge.md   # Deploy edge functions
+    │   ├── draft.md         # Lovable drafts via MCP (NEW in v2.1.0)
     │   ├── apply-migration.md # Apply database migrations
     │   ├── sync-lovable.md  # Sync with Lovable Cloud
     │   ├── yolo.md          # Toggle automation mode

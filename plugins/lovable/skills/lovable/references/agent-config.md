@@ -27,7 +27,8 @@ other agents can read it without a provider-specific parser.
     "mode": "auto",
     "yolo_mode": false,
     "confirm_migrations": false,
-    "test_after_deploy": "off"
+    "test_after_deploy": "off",
+    "use_drafts": "off"
   },
   "testing": {
     "enabled": true,
@@ -52,6 +53,11 @@ other agents can read it without a provider-specific parser.
 Allowed deployment modes are `auto`, `mcp`, `browser`, and `manual`. Testing access methods are
 `token` and `browser-login`; test-after-deploy is `off`, `smoke`, or `all`.
 
+`deploy.use_drafts` is `off` (default; also assumed when the field is absent) or `prefer`. With
+`prefer`, hosted feature work sent to Lovable's agent is built in a Lovable draft and merged only after
+the user explicitly accepts it; deployments and main-only operations still run on the main version.
+See [drafts](drafts.md). Reinitialization preserves the existing value.
+
 `deploy.confirm_migrations: true` requests approval before each migration. The default is false;
 YOLO on therefore runs ordinary in-scope migrations without repeated approval. Destructive or
 irreversible database operations still require confirmation. `deploy.mode: manual` always returns
@@ -65,7 +71,8 @@ Preserve its value on reinitialization. `deploy.mode` alone never grants authori
 
 - `AGENTS.md` is the canonical **local-agent** instruction entry point. Its managed rules belong
   inside `<!-- lovable-local-agent:start -->` / `<!-- lovable-local-agent:end -->` and must not be
-  sent to Lovable chat or knowledge.
+  sent to Lovable chat or knowledge. Lovable's hosted agent can still read the synced file, so the
+  section must say it applies only to the local agent (see [instruction boundaries](instruction-boundaries.md)).
 - `CLAUDE.md` remains generated for Claude Code and may contain a short pointer to `AGENTS.md`.
 - `.lovable-agent/context.md` contains declarative facts only, not behavioral instructions.
 - Project/Workspace knowledge is a separate Lovable-hosted control plane. Never synchronize it with

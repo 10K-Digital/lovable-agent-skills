@@ -18,7 +18,8 @@ Lovable exposes an official MCP (Model Context Protocol) server at `https://mcp.
 - Works headlessly in any environment
 
 **Requirements:**
-- Lovable Pro or higher plan (required by Lovable MCP)
+- A Lovable account (OAuth sign-in in the browser; Lovable MCP does not accept API keys)
+- On Enterprise, a workspace admin or owner must allow third-party MCP clients
 - Claude Code (or Claude Desktop / claude.ai)
 
 ## Instructions
@@ -40,7 +41,7 @@ Benefits:
 ✅ Works in any environment
 
 Requirements:
-- Lovable Pro or higher plan
+- A Lovable account (OAuth sign-in; Enterprise admins must allow third-party MCP clients)
 
 Let's get you connected. Choose your setup method:
 

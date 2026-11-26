@@ -10,6 +10,7 @@ Stop copy-pasting between Lovable and Claude. Stop wrestling with two-way sync. 
 
 ✨ **Edit Lovable projects right in your IDE** with Codex, Claude Code, or another coding agent
 🧪 **Preview Testing** - automated test plans run against your live Preview app
+🌿 **Lovable Drafts** - build, review, and accept parallel versions safely via MCP (NEW in v2.1.0)
 🏗️ **Dual-architecture support** - works with both Vite SPA and TanStack Start (SSR) projects (v1.8.1)
 🔌 **Lovable MCP integration** - deploy via API instead of browser (NEW in v1.8.0!)
 🗺️ **Project Structure Map** - agents navigate your codebase faster
@@ -21,6 +22,25 @@ Stop copy-pasting between Lovable and Claude. Stop wrestling with two-way sync. 
 🛡️ **Automatic secret detection** - never forget a required API key
 ⚡ **Instant setup** - generates project context automatically
 ✅ **Verification built-in** - tests run after every deployment
+
+### What's new in 2.1.0: Lovable Drafts
+
+Lovable drafts are hosted parallel versions of a project, each with its own chat and preview.
+Version 2.1.0 adds the `lovable-drafts` skill (`$lovable:lovable-drafts` in Codex) and the Claude
+`/lovable:draft` command, built on the official Lovable MCP draft tools (`create_draft`,
+`send_message` with `draft_id`, `get_diff`, `accept_draft`, `reject_draft`). The skills now know that:
+
+- drafts are **not** Git branches and do not sync; accepted drafts land on `main` as a normal commit;
+- edge-function deployment, secrets, sign-in, storage, payments, and email stay on the main version;
+- draft data may be shared with the live database, so agents check `backend_kind` before writing;
+- accepting a draft always needs your explicit acceptance, even with YOLO on, and does not publish.
+
+Opt in with `"deploy": { "use_drafts": "prefer" }` in `.lovable-agent/config.json` to have hosted
+feature work built in a draft for review. Other 2.1.0 updates: Lovable now reads your repository's
+`AGENTS.md`/`CLAUDE.md`, so the generated local-agent section tells Lovable it doesn't apply to it;
+free read-only MCP tools are allowed for inspection (only `send_message` and `create_project` use
+credits); and the skills reflect the retirement of Test/Live environments, Drizzle migration records,
+and publish-time security checks.
 
 ### Provider-neutral agent contract
 
@@ -322,6 +342,7 @@ git push origin main
 | `/lovable:deploy-edge` | Deploy edge functions | After code changes (or auto with yolo) |
 | `/lovable:apply-migration` | Apply database migrations | After DB changes (or auto with yolo) |
 | `/lovable:yolo on/off` | Toggle automation + auto-deploy | Configure how you work |
+| `/lovable:draft` | Build, review, accept, or discard a Lovable draft | Try changes without touching main (NEW in v2.1.0) |
 | `/lovable:test-init` | Set up preview testing (wizard) | Once, to create test plans (NEW!) |
 | `/lovable:test-run` | Run tests in Lovable Preview | After changes or full e2e runs (NEW!) |
 | `/lovable:test-sync` | Resync tests with codebase | When new features lack test plans (NEW!) |

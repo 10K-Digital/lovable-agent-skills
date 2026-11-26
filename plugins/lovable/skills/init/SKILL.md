@@ -21,7 +21,8 @@ Resolve helper and reference paths relative to this installed plugin, not the ta
    Record secret names and status only, never values.
 3. Reuse existing settings and facts inferable from the repository. Ask only for missing information
    needed to finish setup. Leave optional unknown URLs empty and report them. For new projects,
-   default YOLO and auto-push to false; enable them only when requested. Reinitialization preserves
+   default YOLO and auto-push to false and `deploy.use_drafts` to `off`; enable them only when
+   requested. Reinitialization preserves
    existing values, including explicit false and custom/unknown configuration fields. Import legacy
    YOLO on/true or off/false only when the neutral field is absent; persist it as a JSON boolean.
 4. If a legacy test workspace exists, use `scripts/migrate-workspace.py` from the plugin (inspect
@@ -36,7 +37,10 @@ Resolve helper and reference paths relative to this installed plugin, not the ta
 6. Create or update exactly one section delimited by `<!-- lovable-local-agent:start -->` and
    `<!-- lovable-local-agent:end -->` in `AGENTS.md`. Title it **Local agent instructions for Lovable
    projects** and state that it applies only to the local agent and must never be copied into Lovable
-   chat or knowledge. Use the
+   chat or knowledge. Because Lovable's hosted agent reads top-level `AGENTS.md`/`CLAUDE.md` with
+   every message, open the section with the hosted-agent notice from the
+   [instruction boundaries](../lovable/references/instruction-boundaries.md) (does not apply to
+   Lovable; do not edit or remove; requested by the user) and keep it concise. Use the
    [prompt authorization rules](../lovable/references/prompt-authorization.md). Include the explicit
    rule: **YOLO on grants standing authorization for in-scope Lovable prompts; generic prompt
    confirmation requirements and generic confirmation-before-publishing-to-main rules apply only
@@ -51,10 +55,12 @@ Resolve helper and reference paths relative to this installed plugin, not the ta
    rules across config and both shims. Repeating init with unchanged inputs should create no
    duplicate sections or reset preferences. Report files updated and effective YOLO status.
 
-Also include a short credit rule in the managed instructions: do work locally, use browser Cloud UI
-for read-only backend/configuration inspection, and reserve consolidated Lovable prompts for hosted
+Also include a short credit rule in the managed instructions: do work locally, use free read-only
+MCP tools or the browser Cloud UI for read-only backend/configuration inspection, and reserve consolidated Lovable prompts for hosted
 operations that cannot be done locally. Link behavior to
 [`credit-efficiency.md`](../lovable/references/credit-efficiency.md); do not copy secrets into shims.
+Include one drafts rule: Lovable drafts do not sync to Git, and accepting a draft always needs the
+user's explicit acceptance (see [`drafts.md`](../lovable/references/drafts.md)).
 
 Initialization is local setup. It does not itself submit a Lovable prompt, deploy, or publish.
 The legacy `/lovable:init-lovable` command delegates here for the same reinitialization behavior.
