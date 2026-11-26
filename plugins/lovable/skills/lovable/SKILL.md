@@ -7,6 +7,7 @@ description: |
   - Database migrations for Lovable Cloud
   - Projects with supabase/ directory structure
   - Any mention of "Lovable", "deploy edge function", "apply migration"
+  - Lovable drafts (creating, reviewing, accepting, or rejecting a draft)
   
   Provides exact Lovable prompts for backend operations that can't be done via GitHub alone.
 ---
@@ -145,6 +146,32 @@ Lovable uses **two-way GitHub sync** on the `main` branch only:
 - Frontend and server-side code (including TanStack server functions) sync automatically
 - Supabase Edge Functions and database migrations require Lovable prompts after code changes
 
+## Drafts (Parallel Versions)
+
+Lovable **drafts** are hosted, branch-like copies of a project with their own chat, preview, and
+edits. Nothing in a draft reaches the project until it is **accepted**, and accepting does not
+publish. Key facts for local agents:
+
+- Drafts **do not sync with Git**: they never appear as repository branches, and their code reaches
+  GitHub `main` only after acceptance. Pull `main` after a draft is accepted.
+- Use drafts only for hosted work the user wants to review first; keep local edits on `main` as usual.
+- Edge-function deployment, secrets, sign-in methods, storage settings, payments, email, enabling AI,
+  and enabling the built-in backend happen from the main version only.
+- Draft schema changes are additive and are applied to the project database on accept.
+- Check `backend_kind` before writing data in a draft preview; unless a draft backend is clearly
+  isolated, draft writes hit the real database and are not undone by deleting the draft.
+- Accepting a draft requires the user's explicit acceptance, even with YOLO on.
+
+Full procedure: [`references/drafts.md`](references/drafts.md) and the `lovable-drafts` skill.
+
+## Repository Instruction Files Are Read by Lovable
+
+Lovable's hosted agent reads top-level `AGENTS.md` and `CLAUDE.md` with every message (and
+subfolder `AGENTS.md` files when working in those folders), and on paid plans may rewrite outdated
+`AGENTS.md` rules. Keep local-agent rules inside the managed, explicitly scoped section and check
+synced diffs for hosted edits to it. See
+[`references/instruction-boundaries.md`](references/instruction-boundaries.md).
+
 ## Response Format
 
 When backend deployment is needed, always output:
@@ -217,6 +244,11 @@ project/
 - No Supabase dashboard access
 - All operations via Lovable prompts
 - Secrets in Cloud → Secrets UI
+- One database per project: the Test and Live environments were retired on October 23, 2026 and
+  replaced by drafts (detached Test databases are deleted on December 1, 2026)
+- Schema changes made by Lovable are recorded as Drizzle migration files under
+  `drizzle/migrations/`; treat them as Lovable-managed records and do not hand-edit them
+- Database tools live under More → Database (SQL editor, Edge functions, Jobs)
 
 ### Own Supabase
 - Direct Supabase dashboard access
@@ -268,6 +300,8 @@ project/
 - **Only `main` syncs** with Lovable
 - Feature branches don't deploy until merged
 - Lovable syncs within 1-2 minutes of push
+- Lovable drafts are **not** Git branches and do not sync; accepted drafts arrive on `main` as a
+  normal commit
 
 ## Yolo Mode - Automated Deployments (Beta)
 
@@ -322,7 +356,11 @@ Instead of showing manual prompts, the **yolo skill** (`/skills/yolo/SKILL.md`) 
    - RLS policies correct?
    - Table exists?
 
-4. **Yolo mode not working?**
+4. **Draft change missing locally?**
+   - Drafts don't sync to Git; was the draft accepted?
+   - After acceptance, pull `main`
+
+5. **Yolo mode not working?**
    - Check `yolo_mode: on` in CLAUDE.md
    - Chrome extension installed?
    - Logged into Lovable?

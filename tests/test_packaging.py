@@ -108,6 +108,15 @@ class PackagingTests(unittest.TestCase):
         self.assertIn("<!-- lovable-local-agent:end -->", init)
         self.assertIn("never import project/workspace knowledge", init)
 
+    def test_drafts_contract_requires_acceptance_and_documents_git_limits(self) -> None:
+        reference = (ROOT / "plugins/lovable/skills/lovable/references/drafts.md").read_text().lower()
+        skill = (ROOT / "plugins/lovable/skills/lovable-drafts/SKILL.md").read_text().lower()
+        yolo = (ROOT / "plugins/lovable/skills/yolo/SKILL.md").read_text().lower()
+        for term in ("do not support git sync", "backend_kind", "accept_draft", "even with yolo on", "pending"):
+            self.assertIn(term, reference)
+        self.assertIn("explicit acceptance", skill)
+        self.assertIn("yolo never accepts a lovable draft", yolo)
+
 
 class MigrationTests(unittest.TestCase):
     def setUp(self) -> None:

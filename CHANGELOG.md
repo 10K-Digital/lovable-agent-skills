@@ -2,6 +2,34 @@
 
 All notable changes to the Lovable Claude Code plugin will be documented in this file.
 
+## [2.1.0] - 2026-11-26
+
+### Added
+- `lovable-drafts` skill, `/lovable:draft` Claude command, and `references/drafts.md` covering
+  Lovable drafts: creating, building in (`send_message` with `draft_id`), reviewing (`get_diff`),
+  accepting (`accept_draft` outcomes and `pending` handling), and rejecting drafts through the
+  official Lovable MCP server, plus the browser workflow.
+- `deploy.use_drafts` setting (`off` by default, or `prefer`) to build hosted feature work in a draft
+  for review before it reaches `main`.
+- MCP guidance for `awaiting_input` pauses (`respond_to_approval` with the user's decision only;
+  secret forms and credit check-ins answered in the Lovable editor) and for publish refusals on
+  critical security findings.
+
+### Changed
+- Drafts are documented as non-Git, branch-like copies: they never appear as repository branches,
+  their code reaches `main` only on acceptance, and agents pull `main` after an accept.
+- Accepting a draft always requires the user's explicit acceptance, even with YOLO on. Main-only
+  operations (edge-function deployment, secrets, sign-in, storage, payments, email) are never sent to
+  a draft, and agents check `backend_kind` before writing data in a draft preview.
+- Credit policy follows Lovable's MCP pricing: only `send_message` and `create_project` consume
+  credits, so free read-only MCP tools may be used for inspection; `query_database` stays `SELECT`-only.
+- Instruction boundaries account for Lovable reading top-level `AGENTS.md`/`CLAUDE.md` (and subfolder
+  `AGENTS.md`) with every message and possibly rewriting outdated rules: the managed local section now
+  tells Lovable it does not apply to it, and agents check synced diffs for hosted edits to it.
+- Core skill notes the retirement of Lovable Cloud Test/Live environments (October 23, 2026) in favor
+  of drafts, Drizzle migration records under `drizzle/migrations/`, and the More → Database menu.
+- `/lovable:connect-mcp` requirements now describe OAuth sign-in and Enterprise admin enablement.
+
 ## [2.0.3] - 2026-09-18
 
 ### Fixed

@@ -32,8 +32,10 @@ Read [prompt authorization](../lovable/references/prompt-authorization.md) and t
 1. Detect architecture and changed backend files locally. Implement, review, type-check, and test
    locally; use GitHub sync for ordinary code. Do not ask Lovable to duplicate local work.
 2. When browser access exists, use **Cloud** pages for read-only database/schema, migrations,
-   functions/logs, secret names/status, auth, storage, and configuration. Never use MCP/chat for
-   those queries and never expose secret values.
+   functions/logs, secret names/status, auth, storage, and configuration. Free read-only MCP tools
+   (`get_project`, `get_diff`, `list_files`, `read_file`, `get_database_status`, draft reads) are also
+   acceptable. Never use Lovable chat or `send_message` for those queries and never expose secret
+   values.
 3. Before the first charged prompt in a task/session, inspect Settings → Project knowledge and
    Workspace knowledge when accessible. Identify instructions that force extra Lovable review,
    testing, refactoring, or documentation. Propose exact economical replacements and wait for
@@ -46,13 +48,22 @@ Read [prompt authorization](../lovable/references/prompt-authorization.md) and t
    Never include local agent instructions, Git policy, test policy, or entire repository files.
 5. Select submission transport from `deploy.mode`:
    - `browser`: browser chat, one consolidated prompt.
-   - `mcp`: official MCP, one consolidated call; do not use it for discovery/status queries.
+   - `mcp`: official MCP, one consolidated `send_message`; never send prompts for discovery/status.
    - `auto`: browser first, then MCP only if browser submission is unavailable, then manual prompt.
    - `manual`: give the consolidated prompt to the user without submitting it.
 6. Distinguish accepted from verified. Prefer the original response, browser Cloud UI, direct
    endpoint checks, and local/Preview tests. Avoid a second Lovable prompt for logs or status.
    Tool-native non-prompt polling may be bounded; never poll through repeated `send_message` calls.
 7. Report operations, transport, response status, verification evidence, and any unverified item.
+
+## Drafts and approvals
+
+YOLO never accepts a Lovable draft: `accept_draft` requires the user's explicit acceptance of that
+draft (see [drafts](../lovable/references/drafts.md)). YOLO also never answers Lovable
+`awaiting_input` approvals, secret forms, or credit check-ins on the user's behalf. Deployment prompts
+for edge functions, secrets, and migrations run against the main version, not a draft.
+`deploy_project` may refuse to publish on unresolved critical security findings; report them rather
+than ignoring them.
 
 ## Free remediation exception
 
